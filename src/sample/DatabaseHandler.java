@@ -102,5 +102,11 @@ public class DatabaseHandler extends Configs{
         getDbConnection().prepareStatement(update).executeUpdate();
     }
 
+    public void sortedListAndPlace() throws SQLException, ClassNotFoundException {
+        String select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE;
+        String sorted = "ORDER BY " + Const.PARTICIPANTS_RESULT_KEF;
+        getDbConnection().prepareStatement(select);
+        getDbConnection().prepareStatement(sorted);
+    }
 
 }
