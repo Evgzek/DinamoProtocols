@@ -19,12 +19,12 @@
                   <Font name="Chiller" size="22.0" />
                </font>
             </Button>
-            <Button id="preview" fx:id="preview" layoutX="225.0" layoutY="123.0" mnemonicParsing="false" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Посмотреть протокол" textFill="#1e205d">
+            <Button id="preview" fx:id="preview" onAction="#test" layoutX="225.0" layoutY="123.0" mnemonicParsing="false" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Посмотреть протокол" textFill="#1e205d">
                <font>
                   <Font name="Chiller" size="22.0" />
                </font>
             </Button>
-            <Button id="settings" fx:id="settings" onAction="#connectDb" layoutX="281.0" layoutY="199.0" mnemonicParsing="false" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Настройки" textFill="#1e205d">
+            <Button id="settings" fx:id="settings"  layoutX="281.0" layoutY="199.0" mnemonicParsing="false" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Настройки" textFill="#1e205d">
                <font>
                   <Font name="Chiller" size="22.0" />
                </font>

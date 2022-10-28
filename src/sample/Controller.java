@@ -2,6 +2,7 @@ package sample;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -75,9 +76,10 @@ public class Controller {
         stage.show();
     }
 
-    @FXML
-    public void connectDb(javafx.event.ActionEvent event) throws IOException{
-
+    public void test() throws SQLException, ClassNotFoundException {
+        DatabaseHandler db = new DatabaseHandler();
+        db.sorted();
+//        db.sortedPlace();
     }
 
 }
