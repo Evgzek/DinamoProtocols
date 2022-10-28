@@ -104,10 +104,11 @@ public class DatabaseHandler extends Configs{
 
     public void sortedPlace() throws SQLException, ClassNotFoundException {
         int i = 0;
-        String select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE;
-        String sorted = "ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + ";";
-        getDbConnection().prepareStatement(select);
-        getDbConnection().prepareStatement(sorted);
+//        String select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE;
+//        String sorted = "ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + ";";
+        String select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + ";";
+//        getDbConnection().prepareStatement(select);
+//        getDbConnection().prepareStatement(sorted);
         Statement statement = dbConnection.createStatement();
         ResultSet resultSet = statement.executeQuery(select);
 //        String update = "UPDATE " + Const.NEW_PARTICIPANTS_TABLE + " SET " + Const.PARTICIPANTS_PLACE + " = '" + i + "' WHERE " +
@@ -118,10 +119,17 @@ public class DatabaseHandler extends Configs{
     }
 
     public void sorted() throws SQLException, ClassNotFoundException {
-        String select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE;
+//        String select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " ORDER BY " + Const.PARTICIPANTS_KEF +" ASC;";
+        String select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + " ASC;";
         String sorted = "ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + ";";
-        getDbConnection().prepareStatement(select);
-        getDbConnection().prepareStatement(sorted);
+//        String sorted = "ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + ";";
+//        getDbConnection().prepareStatement(select);
+//        getDbConnection().prepareStatement(sorted);
+        Statement statement = getDbConnection().createStatement();
+        ResultSet resultSet = statement.executeQuery(select);
+        while (resultSet.next()){
+            System.out.println(resultSet.getInt("нагрудный_номер"));
+        }
     }
 
 }
