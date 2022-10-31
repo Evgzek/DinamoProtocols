@@ -98,37 +98,23 @@ public class DatabaseHandler extends Configs{
             }
         }
         String update = "UPDATE " + Const.NEW_PARTICIPANTS_TABLE + " SET " + Const.PARTICIPANTS_RESULT_KEF + " = '0:" +
-                minute + ":" + seconds + "." + tens + "' " + "WHERE " + Const.PARTICIPANTS_NUMBER + " = '" + number + "';";
+                minute + ":" + seconds + "." + tens + "' " + "WHERE "
+                + Const.PARTICIPANTS_NUMBER + " = '" + number + "';";
         getDbConnection().prepareStatement(update).executeUpdate();
     }
 
     public void sortedPlace() throws SQLException, ClassNotFoundException {
         int i = 0;
-//        String select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE;
-//        String sorted = "ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + ";";
-        String select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + ";";
-//        getDbConnection().prepareStatement(select);
-//        getDbConnection().prepareStatement(sorted);
-        Statement statement = dbConnection.createStatement();
-        ResultSet resultSet = statement.executeQuery(select);
-//        String update = "UPDATE " + Const.NEW_PARTICIPANTS_TABLE + " SET " + Const.PARTICIPANTS_PLACE + " = '" + i + "' WHERE " +
-//                Const.PARTICIPANTS_NUMBER + " = '" + resultSet.getDouble(Const.PARTICIPANTS_NUMBER) + "'";
-        while (resultSet.next()){
-            i++;
-        }
-    }
-
-    public void sorted() throws SQLException, ClassNotFoundException {
-//        String select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " ORDER BY " + Const.PARTICIPANTS_KEF +" ASC;";
-        String select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + " ASC;";
-        String sorted = "ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + ";";
-//        String sorted = "ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + ";";
-//        getDbConnection().prepareStatement(select);
-//        getDbConnection().prepareStatement(sorted);
+        String select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " ORDER BY " +
+                Const.PARTICIPANTS_RESULT_KEF + " ASC;";
         Statement statement = getDbConnection().createStatement();
         ResultSet resultSet = statement.executeQuery(select);
         while (resultSet.next()){
-            System.out.println(resultSet.getInt("нагрудный_номер"));
+            i++;
+            int number = resultSet.getInt("нагрудный_номер");
+            String update = "UPDATE " + Const.NEW_PARTICIPANTS_TABLE + " SET " + Const.PARTICIPANTS_PLACE +
+                    " = " + i + " WHERE " + Const.PARTICIPANTS_NUMBER + " = " + number + ";";
+            getDbConnection().prepareStatement(update).executeUpdate();
         }
     }
 

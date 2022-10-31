@@ -78,7 +78,7 @@ public class Controller {
 
     public void test() throws SQLException, ClassNotFoundException {
         DatabaseHandler db = new DatabaseHandler();
-        db.sorted();
+        db.sortedPlace();
 //        db.sortedPlace();
     }
 
