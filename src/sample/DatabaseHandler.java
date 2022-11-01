@@ -101,20 +101,50 @@ public class DatabaseHandler extends Configs{
                 minute + ":" + seconds + "." + tens + "' " + "WHERE "
                 + Const.PARTICIPANTS_NUMBER + " = '" + number + "';";
         getDbConnection().prepareStatement(update).executeUpdate();
+        String updatesec = "UPDATE " + Const.NEW_PARTICIPANTS_TABLE + " SET " + Const.PARTICIPANTS_SECONDS + " = " +
+                time + " WHERE " + Const.PARTICIPANTS_NUMBER + " = " + number + ";";
+        getDbConnection().prepareStatement(updatesec).executeUpdate();
     }
 
     public void sortedPlace() throws SQLException, ClassNotFoundException {
         int i = 0;
+        double time_leader = 0;
         String select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " ORDER BY " +
                 Const.PARTICIPANTS_RESULT_KEF + " ASC;";
         Statement statement = getDbConnection().createStatement();
         ResultSet resultSet = statement.executeQuery(select);
+        while (resultSet.next()){
+            time_leader = resultSet.getDouble(Const.PARTICIPANTS_SECONDS);
+            System.out.println(time_leader);
+            break;
+        }
+        resultSet = statement.executeQuery(select);
         while (resultSet.next()){
             i++;
             int number = resultSet.getInt("нагрудный_номер");
             String update = "UPDATE " + Const.NEW_PARTICIPANTS_TABLE + " SET " + Const.PARTICIPANTS_PLACE +
                     " = " + i + " WHERE " + Const.PARTICIPANTS_NUMBER + " = " + number + ";";
             getDbConnection().prepareStatement(update).executeUpdate();
+            double time = resultSet.getDouble(Const.PARTICIPANTS_SECONDS);
+            time = time - time_leader;
+            int minute = 0;
+            int seconds = 0;
+            int tens = 0;
+            minute = (int) (time/60);
+            seconds = (int) (time - minute*60);
+            double k = time%1;
+            if (k<0.05){
+                tens = 0;
+            }else if (k<0.1){
+                tens = 10;
+            }else {
+                k = k*100;
+                tens = (int) k;
+            }
+            String update_raznica = "UPDATE " + Const.NEW_PARTICIPANTS_TABLE + " SET " + Const.PARTICIPANTS_RAZNICA + " = '0:" +
+                    minute + ":" + seconds + "." + tens + "' " + "WHERE "
+                    + Const.PARTICIPANTS_NUMBER + " = '" + number + "';";
+            getDbConnection().prepareStatement(update_raznica).executeUpdate();
         }
     }
 

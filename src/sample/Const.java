@@ -14,6 +14,7 @@ public class Const {
     public static final String PARTICIPANTS_RESULT_KEF = "результат_по_кроссу_с_учетом_коэффициента";
     public static final String PARTICIPANTS_PLACE = "место";
     public static final String PARTICIPANTS_RAZNICA = "время_от_результата_победителя_с_учетом_коэффициента";
+    public static final String PARTICIPANTS_SECONDS = "секунды";
     public static final String PARTICIPANTS_GROUP1 = "до 30 лет";
     public static final String PARTICIPANTS_GROUP2 = "от 30 до 34 лет";
     public static final String PARTICIPANTS_GROUP3 = "от 35 до 39 лет";
