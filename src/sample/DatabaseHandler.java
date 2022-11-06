@@ -1,5 +1,17 @@
 package sample;
 
+import javafx.stage.Stage;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import javax.swing.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.*;
 
 public class DatabaseHandler extends Configs{
@@ -147,5 +159,19 @@ public class DatabaseHandler extends Configs{
             getDbConnection().prepareStatement(update_raznica).executeUpdate();
         }
     }
+
+    public void convertExcel () throws IOException, InvalidFormatException {
+//        Workbook wb = new XSSFWorkbook();
+//        Sheet sheet = wb.createSheet("test");
+//        FileOutputStream out = new FileOutputStream("C:/NewExcelFile.xlsx");
+//        wb.write(out);
+//        out.close();
+        JFileChooser fileChooser = new JFileChooser();
+        Stage stage = new Stage();
+        stage.setTitle("AAA");
+
+    }
+
+
 
 }
