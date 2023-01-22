@@ -2,17 +2,26 @@ package sample;
 
 import javafx.stage.Stage;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import javax.management.remote.TargetedNotification;
 import javax.swing.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DatabaseHandler extends Configs{
     Connection dbConnection;
@@ -160,15 +169,86 @@ public class DatabaseHandler extends Configs{
         }
     }
 
-    public void convertExcel () throws IOException, InvalidFormatException {
+    public void test () throws SQLException, ClassNotFoundException, ParseException {
+        String select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " ORDER BY " +
+                Const.PARTICIPANTS_RESULT_KEF + " ASC;";
+        Statement statement = getDbConnection().createStatement();
+        ResultSet resultSet = statement.executeQuery(select);
+        while (resultSet.next()){
+            String time = resultSet.getString(Const.PARTICIPANTS_RESULT);
+//            SimpleDateFormat dt = new SimpleDateFormat("00:mm:ss.SS");
+//            Date date = dt.parse(time);
+            System.out.println(time);
+            break;
+        }
+    }
+
+    public void convertExcel () throws IOException, InvalidFormatException, SQLException, ClassNotFoundException {
 //        Workbook wb = new XSSFWorkbook();
 //        Sheet sheet = wb.createSheet("test");
 //        FileOutputStream out = new FileOutputStream("C:/NewExcelFile.xlsx");
 //        wb.write(out);
 //        out.close();
-        JFileChooser fileChooser = new JFileChooser();
-        Stage stage = new Stage();
-        stage.setTitle("AAA");
+//        JFileChooser fileChooser = new JFileChooser();
+//        Stage stage = new Stage();
+//        stage.setTitle("AAA");
+        try {
+            String file = "C:\\Users\\79991\\Desktop\\tpr.xlsx";
+            File new_file = new File(file);
+            FileInputStream out = new FileInputStream(new_file);
+            XSSFWorkbook wb = new XSSFWorkbook(out);
+            XSSFSheet sheet = wb.getSheetAt(0);
+            String select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " ORDER BY " +
+                    Const.PARTICIPANTS_RESULT_KEF + " ASC;";
+            Statement statement = getDbConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(select);
+            int i = 0;
+//            Row row = sheet.getRow(12);
+//            Cell cell = row.getCell(3);
+//            cell.setCellValue("КФК №7");
+            while (resultSet.next()){
+                Row row = sheet.getRow(12 + i);
+                Cell cell = row.getCell(1);
+                cell.setCellValue(resultSet.getInt(Const.PARTICIPANTS_NUMBER));
+                cell = row.getCell(2);
+                cell.setCellValue(resultSet.getString(Const.PARTICIPANTS_NAME));
+                cell = row.getCell(3);
+                cell.setCellValue(resultSet.getString(Const.PARTICIPANTS_TEAMS));
+                cell = row.getCell(4);
+                cell.setCellValue(resultSet.getInt(Const.PARTICIPANTS_YEAR));
+                cell = row.getCell(5);
+                cell.setCellValue(resultSet.getString(Const.PARTICIPANTS_GROUP));
+                cell = row.getCell(6);
+                cell.setCellValue(resultSet.getDouble(Const.PARTICIPANTS_KEF));
+                cell = row.getCell(7);
+                String time = resultSet.getString(Const.PARTICIPANTS_RESULT);
+                System.out.println(time);
+                cell.setCellValue(time);
+                cell = row.getCell(8);
+                time = resultSet.getString(Const.PARTICIPANTS_RESULT_KEF);
+                System.out.println(time);
+                cell.setCellValue(time);
+                cell = row.getCell(9);
+                cell.setCellValue(resultSet.getInt(Const.PARTICIPANTS_PLACE));
+                cell = row.getCell(10);
+                if (resultSet.getInt(Const.PARTICIPANTS_PLACE) == 1){
+                    cell.setCellValue("00:00:00.0");
+                }else {
+                    time = resultSet.getString(Const.PARTICIPANTS_RAZNICA);
+                    System.out.println(time);
+                    cell.setCellValue(time);
+                }
+                i++;
+            }
+            out.close();
+            FileOutputStream write = new FileOutputStream(new_file);
+            wb.write(write);
+            write.close();
+            System.out.println("good");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 
