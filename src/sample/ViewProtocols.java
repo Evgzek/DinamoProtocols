@@ -29,10 +29,27 @@ public class ViewProtocols {
     @FXML
     private Button individProcotols;
 
+    @FXML
+    private Button back;
+
 
     @FXML
     void initialize() {
 
+    }
+
+    @FXML
+    public void back(javafx.event.ActionEvent event) throws IOException {
+
+        Stage stage = (Stage) back.getScene().getWindow();
+        stage.close();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/sample.fxml"));
+        Parent root = (Parent) loader.load();
+        stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML

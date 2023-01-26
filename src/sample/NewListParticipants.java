@@ -10,12 +10,16 @@ import java.util.ResourceBundle;
 import com.mysql.cj.util.StringUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -49,12 +53,29 @@ public class NewListParticipants {
     @FXML
     private TextField numberSheet;
 
+    @FXML
+    private Button back;
+
 
 
 
     @FXML
     void initialize() {
 
+    }
+
+    @FXML
+    public void back(javafx.event.ActionEvent event) throws IOException {
+
+        Stage stage = (Stage) back.getScene().getWindow();
+        stage.close();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/create.fxml"));
+        Parent root = (Parent) loader.load();
+        stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML

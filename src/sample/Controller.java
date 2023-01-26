@@ -4,7 +4,6 @@ import java.io.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.Iterator;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,17 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
 public class Controller {
@@ -89,28 +80,55 @@ public class Controller {
 
     public void testFunction (javafx.event.ActionEvent event) throws SQLException, ClassNotFoundException, ParseException, IOException, InvalidFormatException {
         DatabaseHandler db = new DatabaseHandler();
+        db.runshoot(543.5, 67);
+//        String file = "C:\\Users\\79991\\Desktop\\shablon.xlsx";
+//        FileInputStream fileInputStream = new FileInputStream(file);
+//        XSSFWorkbook wb = new XSSFWorkbook(fileInputStream);
+//        XSSFSheet sheet = wb.getSheetAt(14);
+////        db.test(sheet.getRow(1).getCell(1).getNumericCellValue(), sheet.getRow(1).getCell(2).getNumericCellValue());
+//        int i = 0;
+//        while (sheet.getRow(i) != null){
+//            db.test(sheet.getRow(i).getCell(1).getNumericCellValue(),
+//                    sheet.getRow(i).getCell(0).getNumericCellValue(),
+//                    sheet.getRow(i).getCell(3).getNumericCellValue(),
+//                    sheet.getRow(i).getCell(2).getNumericCellValue());
+//            i++;
+//            System.out.println("good");
+//        }
+//        fileInputStream.close();
+//        System.out.println("xxx");
+//        Desktop desktop = null;
+//        if (Desktop.isDesktopSupported()){
+//            desktop = Desktop.getDesktop();
+//        }
+//        String file = "C:\\Users\\79991\\Desktop\\tpr.xlsx";
+//        try {
+//            desktop.open(new File(file));
+//        }catch (IOException e){
+//            e.printStackTrace();
+//        }
 //        db.test();
 //        db.sortedPlace();
 //        db.convertExcel();
-        try {
-            String file = "C:\\Users\\79991\\Desktop\\tpr.xlsx";
-            File new_file = new File(file);
-            FileInputStream out = new FileInputStream(new_file);
-            XSSFWorkbook wb = new XSSFWorkbook(out);
-            XSSFSheet sheet = wb.getSheetAt(0);
-            Row row = sheet.getRow(5);
-            Cell cell = row.getCell(0);
-            cell.setCellValue("5 сентября");
-            cell = row.getCell(2);
-            cell.setCellValue(2023);
-            out.close();
-            FileOutputStream write = new FileOutputStream(new_file);
-            wb.write(write);
-            write.close();
-            System.out.println("good");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            String file = "C:\\Users\\79991\\Desktop\\tpr.xlsx";
+//            File new_file = new File(file);
+//            FileInputStream out = new FileInputStream(new_file);
+//            XSSFWorkbook wb = new XSSFWorkbook(out);
+//            XSSFSheet sheet = wb.getSheetAt(0);
+//            Row row = sheet.getRow(5);
+//            Cell cell = row.getCell(0);
+//            cell.setCellValue("5 сентября");
+//            cell = row.getCell(2);
+//            cell.setCellValue(2023);
+//            out.close();
+//            FileOutputStream write = new FileOutputStream(new_file);
+//            wb.write(write);
+//            write.close();
+//            System.out.println("good");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 //        try {
 //            String file = "C:\\Users\\79991\\Desktop\\savetest1.xlsx";
 //            File new_file = new File(file);

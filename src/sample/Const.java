@@ -27,6 +27,15 @@ public class Const {
     public static final double PARTICIPANTS_KEF4 = 0.93;
     public static final double PARTICIPANTS_KEF5 = 0.90;
     public static final double PARTICIPANTS_KEF6 = 0.85;
+    public static final String SHOOTING_TABLE = "shooting";
+    public static final String SHOOTING_RESULT = "results";
+    public static final String SHOOTING_POINTS = "points";
+    public static final String RUN_TABLE = "run";
+    public static final String RUN_TIME_M = "time_m";
+    public static final String RUN_RESULT_M = "result_m";
+    public static final String RUN_TIME_W = "time_w";
+    public static final String RUN_RESULT_W = "result_w";
+
 
 
 }

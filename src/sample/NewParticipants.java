@@ -1,11 +1,17 @@
 package sample;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class NewParticipants {
 
@@ -34,7 +40,24 @@ public class NewParticipants {
     private TextField create_name;
 
     @FXML
+    private Button back;
+
+    @FXML
     void initialize() {}
+
+    @FXML
+    public void back(javafx.event.ActionEvent event) throws IOException {
+
+        Stage stage = (Stage) back.getScene().getWindow();
+        stage.close();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/create.fxml"));
+        Parent root = (Parent) loader.load();
+        stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 
     @FXML
     public void dbAction(javafx.event.ActionEvent event){

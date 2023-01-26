@@ -1,27 +1,17 @@
 package sample;
 
-import javafx.stage.Stage;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import javax.management.remote.TargetedNotification;
-import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.sql.*;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class DatabaseHandler extends Configs{
     Connection dbConnection;
@@ -60,6 +50,7 @@ public class DatabaseHandler extends Configs{
         }
 
     }
+
 
     public void newListParticipants (double number, String name, String team, double year, String group,
                                  double kef){
@@ -122,9 +113,9 @@ public class DatabaseHandler extends Configs{
                 minute + ":" + seconds + "." + tens + "' " + "WHERE "
                 + Const.PARTICIPANTS_NUMBER + " = '" + number + "';";
         getDbConnection().prepareStatement(update).executeUpdate();
-        String updatesec = "UPDATE " + Const.NEW_PARTICIPANTS_TABLE + " SET " + Const.PARTICIPANTS_SECONDS + " = " +
+        String update_sec = "UPDATE " + Const.NEW_PARTICIPANTS_TABLE + " SET " + Const.PARTICIPANTS_SECONDS + " = " +
                 time + " WHERE " + Const.PARTICIPANTS_NUMBER + " = " + number + ";";
-        getDbConnection().prepareStatement(updatesec).executeUpdate();
+        getDbConnection().prepareStatement(update_sec).executeUpdate();
     }
 
     public void sortedPlace() throws SQLException, ClassNotFoundException {
@@ -169,18 +160,56 @@ public class DatabaseHandler extends Configs{
         }
     }
 
-    public void test () throws SQLException, ClassNotFoundException, ParseException {
-        String select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " ORDER BY " +
-                Const.PARTICIPANTS_RESULT_KEF + " ASC;";
+    public void runshoot(double time, double shoot) throws SQLException, ClassNotFoundException {
+        String select = "SELECT * FROM " + Const.RUN_TABLE;
         Statement statement = getDbConnection().createStatement();
         ResultSet resultSet = statement.executeQuery(select);
         while (resultSet.next()){
-            String time = resultSet.getString(Const.PARTICIPANTS_RESULT);
-//            SimpleDateFormat dt = new SimpleDateFormat("00:mm:ss.SS");
-//            Date date = dt.parse(time);
-            System.out.println(time);
-            break;
+            if (time < resultSet.getDouble(Const.RUN_TIME_M)){
+                System.out.println(resultSet.getDouble(Const.RUN_RESULT_M));
+                break;
+            }
         }
+        select = "SELECT * FROM " + Const.SHOOTING_TABLE;
+        resultSet = statement.executeQuery(select);
+        while (resultSet.next()){
+            if (shoot == resultSet.getDouble(Const.SHOOTING_RESULT)){
+                System.out.println(resultSet.getDouble(Const.SHOOTING_POINTS));
+                break;
+            }
+        }
+    }
+
+
+    public void test (double time_m, double points_m, double time_w, double points_w ) throws SQLException, ClassNotFoundException, ParseException {
+        String insert = "INSERT INTO " + Const.RUN_TABLE + "("+ Const.RUN_TIME_M + ", " +
+                Const.RUN_RESULT_M + ", " + Const.RUN_TIME_W + ", " + Const.RUN_RESULT_W + ")" + "VALUES(?,?,?,?)";
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
+        System.out.println("s");
+        System.out.println("d");
+            preparedStatement.setDouble(1, time_m);
+        System.out.println("f");
+            preparedStatement.setDouble(2, points_m);
+            preparedStatement.setDouble(3, time_w);
+            preparedStatement.setDouble(4, points_w);
+        System.out.println("g");
+            preparedStatement.executeUpdate();
+        System.out.println("good");
+//        String select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " ORDER BY " +
+//                Const.PARTICIPANTS_RESULT_KEF + " ASC;";
+//        String delete = "TRUNCATE TABLE " + Const.NEW_PARTICIPANTS_TABLE + ";";
+//        Statement statement = getDbConnection().createStatement();
+//        statement.executeUpdate(delete);
+//        System.out.println("good");
+//        ResultSet resultSet = statement.executeQuery(select);
+//        while (resultSet.next()){
+//            String time = resultSet.getString(Const.PARTICIPANTS_RESULT);
+////            SimpleDateFormat dt = new SimpleDateFormat("00:mm:ss.SS");
+////            Date date = dt.parse(time);
+//            System.out.println(time);
+//            break;
+//        }
+
     }
 
     public void convertExcel () throws IOException, InvalidFormatException, SQLException, ClassNotFoundException {
@@ -235,7 +264,6 @@ public class DatabaseHandler extends Configs{
                     cell.setCellValue("00:00:00.0");
                 }else {
                     time = resultSet.getString(Const.PARTICIPANTS_RAZNICA);
-                    System.out.println(time);
                     cell.setCellValue(time);
                 }
                 i++;
