@@ -3,6 +3,7 @@ package sample;
 public class Const {
     public static final String PARTICIPANTS_TABLE = "`participants`";
     public static final String NEW_PARTICIPANTS_TABLE = "participants";
+    public static final String TWO_PARTICIPANTS_TABLE = "two_participants";
     public static final String PARTICIPANTS_PP = "п_п";
     public static final String PARTICIPANTS_NUMBER = "нагрудный_номер";
     public static final String PARTICIPANTS_NAME = "фамилия_и_имя";
@@ -15,6 +16,15 @@ public class Const {
     public static final String PARTICIPANTS_PLACE = "место";
     public static final String PARTICIPANTS_RAZNICA = "время_от_результата_победителя_с_учетом_коэффициента";
     public static final String PARTICIPANTS_SECONDS = "секунды";
+    public static final String PARTICIPANTS_RESULT_POINTS = "баллы_по_кроссу";
+    public static final String PARTICIPANTS_RESULT_KEF_POINTS = "баллы_с_учетом_коэффициента";
+    public static final String PARTICIPANTS_SHOOT = "стрельба";
+    public static final String PARTICIPANTS_SHOOT_POINTS = "баллы_по_стрельбе";
+    public static final String PARTICIPANTS_SUM_POINTS = "общий_балл";
+    public static final String PARTICIPANTS_DISCHARGE = "разряд";
+    public static final String PARTICIPANTS_SUM_POINTS_KEF = "общий_балл_с_коэффициентом";
+    public static final String PARTICIPANTS_GENDER = "пол";
+    public static final String PARTICIPANTS_TARGET = "направление_мишени";
     public static final String PARTICIPANTS_GROUP1 = "до 30 лет";
     public static final String PARTICIPANTS_GROUP2 = "от 30 до 34 лет";
     public static final String PARTICIPANTS_GROUP3 = "от 35 до 39 лет";
@@ -35,7 +45,15 @@ public class Const {
     public static final String RUN_RESULT_M = "result_m";
     public static final String RUN_TIME_W = "time_w";
     public static final String RUN_RESULT_W = "result_w";
-
-
-
+    public static final String PARTICIPANTS_ZABEG = "забег";
+    public static final String TEAMS_TABLE = "teams";
+    public static final String TEAMS_TEAM = "team";
+    public static final String W_1 = "w_1_";
+    public static final String W_2 = "w_2_";
+    public static final String M_1 = "m_1_";
+    public static final String M_2 = "m_2_";
+    public static final String M_3 = "m_3_";
+    public static final String M_4 = "m_4_";
+    public static final String TEAMS_SUM_PLACE = "sum_";
+    public static final String TEAMS_PLACE = "place_";
 }

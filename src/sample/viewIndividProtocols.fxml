@@ -10,20 +10,39 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ViewProtocols">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ViewIndividProtocols">
     <children>
         <AnchorPane layoutY="105.0" prefHeight="295.0" prefWidth="700.0" style="-fx-background-color: #fafafa;">
             <children>
-                <Button fx:id="individProcotols" layoutX="196.0" layoutY="54.0" mnemonicParsing="false" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Индивидуальные протоклы" textFill="#1e205d">
+                <Button fx:id="individProtocols" layoutX="196.0" layoutY="225.0" mnemonicParsing="false" onAction="#setIndividProtocols" prefHeight="50.0" prefWidth="309.0" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Загрузить протокол" textFill="#1e205d">
                     <font>
                         <Font name="Chiller" size="22.0" />
                     </font>
                 </Button>
-                <Button fx:id="teamsProtocols" layoutX="196.0" layoutY="134.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="309.0" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Командные протоколы" textFill="#1e205d">
-                    <font>
-                        <Font name="Chiller" size="22.0" />
-                    </font>
-                </Button>
+            <Label fx:id="performance" layoutX="208.0" layoutY="26.0" text="Выберите характеристики для протокола" />
+            <MenuButton fx:id="choice" layoutX="59.0" layoutY="96.0" mnemonicParsing="false" text="Пол участника">
+              <items>
+                <MenuItem fx:id="choice_1" mnemonicParsing="false" onAction="#setChoice_one" text="Мужчины" />
+                <MenuItem fx:id="choice_2" mnemonicParsing="false" onAction="#setChoice_two" text="Женщины" />
+              </items>
+            </MenuButton>
+            <MenuButton fx:id="choice_race" layoutX="299.0" layoutY="96.0" mnemonicParsing="false" text="Вид забега">
+              <items>
+                <MenuItem fx:id="race_1" mnemonicParsing="false" onAction="#setRace_1" text="Кросс" />
+                <MenuItem fx:id="race_2" mnemonicParsing="false" onAction="#setRace_2" text="Двоеборье" />
+              </items>
+            </MenuButton>
+            <MenuButton fx:id="what" layoutX="526.0" layoutY="96.0" mnemonicParsing="false" text="Какой забег">
+              <items>
+                <MenuItem fx:id="what_1" mnemonicParsing="false" onAction="#setWhat_1" text="1" />
+                <MenuItem fx:id="what_2" mnemonicParsing="false" onAction="#setWhat_2" text="2" />
+                  <MenuItem fx:id="what_3" mnemonicParsing="false" onAction="#setWhat_3" text="3" />
+                  <MenuItem fx:id="what_4" mnemonicParsing="false" onAction="#setWhat_4" text="4" />
+                  <MenuItem fx:id="what_5" mnemonicParsing="false" onAction="#setWhat_5" text="5" />
+                  <MenuItem fx:id="what_6" mnemonicParsing="false" onAction="#setWhat_6" text="6" />
+                  <MenuItem fx:id="all_race" mnemonicParsing="false" onAction="#setAll_race" text="Полный протокол" />
+              </items>
+            </MenuButton>
             </children></AnchorPane>
         <Label layoutX="14.0" layoutY="65.0" prefHeight="38.0" prefWidth="241.0" text="DinamoProtocols" textFill="WHITE">
             <font>

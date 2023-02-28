@@ -2,7 +2,10 @@ package sample;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.text.Collator;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,7 +46,26 @@ public class NewParticipants {
     private Button back;
 
     @FXML
-    void initialize() {}
+    private TextField createTarget;
+
+    @FXML
+    private TextField createZabeg;
+
+    @FXML
+    private CheckBox v_k;
+
+    @FXML
+    void initialize() {
+        Collator collator = Collator.getInstance(new Locale("ru", "RU"));
+        collator.setStrength(Collator.PRIMARY);
+        String str3 = "Кросс";
+        String str4 = SelectionCriteria.vid;
+        int result = collator.compare(str3, str4);
+        if (result == 0){
+            createTarget.setVisible(false);
+        }
+
+    }
 
     @FXML
     public void back(javafx.event.ActionEvent event) throws IOException {
@@ -51,7 +73,7 @@ public class NewParticipants {
         Stage stage = (Stage) back.getScene().getWindow();
         stage.close();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/create.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SelectionCriteria.stage1));
         Parent root = (Parent) loader.load();
         stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -60,9 +82,15 @@ public class NewParticipants {
     }
 
     @FXML
-    public void dbAction(javafx.event.ActionEvent event){
+    public void dbAction(javafx.event.ActionEvent event) throws SQLException, ClassNotFoundException {
 
-        if (create_team.getText().equals("") || create_name.getText().equals("") || create_number.getText().equals("") || create_year.getText().equals("")){
+        int vK = 0;
+        if (v_k.isSelected()){
+            vK = 1;
+        }
+
+        if (create_team.getText().equals("") || create_name.getText().equals("") || create_number.getText().equals("")
+                || create_year.getText().equals("") || createZabeg.getText().equals("")){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Error");
             alert.setHeaderText(null);
@@ -96,12 +124,43 @@ public class NewParticipants {
                 group = Const.PARTICIPANTS_GROUP6;
                 kef = Const.PARTICIPANTS_KEF6;
             }
-            dbHandler.newParticipants(Integer.parseInt(create_number.getText()), create_name.getText(), create_team.getText(), Integer.parseInt(create_year.getText()),
-                    group, kef);
+            String str1 = "Женщины";
+            String str2 = SelectionCriteria.pol;
+            String gender = "null3";
+            Collator collator = Collator.getInstance(new Locale("ru", "RU"));
+            collator.setStrength(Collator.PRIMARY);
+            int result = collator.compare(str1, str2);
+            int e = 0;
+            if (result < 0){
+                gender = "M";
+            }else if (result == 0){
+                gender = "W";
+            }
+            String str3 = "Двоеборье";
+            String str4 = SelectionCriteria.vid;
+            String table = "";
+            result = collator.compare(str3, str4);
+            if (result < 0){
+                table = Const.PARTICIPANTS_TABLE;
+                e = 1;
+            }else if (result == 0){
+                table = Const.TWO_PARTICIPANTS_TABLE;
+                e = 2;
+            }
+            if (e == 1){
+                dbHandler.newParticipants(Integer.parseInt(create_number.getText()), create_name.getText(), create_team.getText(), Integer.parseInt(create_year.getText()),
+                        group, kef, gender, table, -1, Integer.parseInt(createZabeg.getText()), vK);
+            }else if (e == 2){
+                dbHandler.newParticipants(Integer.parseInt(create_number.getText()), create_name.getText(), create_team.getText(), Integer.parseInt(create_year.getText()),
+                        group, kef, gender, table, Integer.parseInt(createTarget.getText()), Integer.parseInt(createZabeg.getText()), vK);
+                createTarget.clear();
+            }
             create_number.clear();
             create_name.clear();
             create_year.clear();
             create_team.clear();
+            createZabeg.clear();
+            v_k.setSelected(false);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setHeaderText(null);

@@ -12,9 +12,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
 public class Controller {
@@ -70,7 +72,7 @@ public class Controller {
         Stage stage = (Stage) create.getScene().getWindow();
         stage.close();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/create.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/selectionCriteria.fxml"));
         Parent root = (Parent) loader.load();
         stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -153,7 +155,7 @@ public class Controller {
 
     }
 
-    public void viewProtocols(javafx.event.ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
+    public void viewProtocols(javafx.event.ActionEvent event) throws SQLException, ClassNotFoundException, IOException, ParseException {
         Stage stage = (Stage) preview.getScene().getWindow();
         stage.close();
 
@@ -164,6 +166,8 @@ public class Controller {
         stage.setScene(new Scene(root));
         stage.show();
 
+        DatabaseHandler db = new DatabaseHandler();
+        db.test();
 //        DatabaseHandler db = new DatabaseHandler();
 //        db.sortedPlace();
 //        FileChooser fileChooser = new FileChooser();
@@ -182,22 +186,25 @@ public class Controller {
 //
 //        }
 //        String selectFile = "";
-//        Stage stage = new Stage();
-//        stage.setTitle("AAA");
+//        Stage stage1 = new Stage();
+//        stage1.setTitle("AAA");
 //        FileChooser fileChooser = new FileChooser();
 //        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel File", "*.xlsx"));
-//        File file = fileChooser.showOpenDialog(stage);
+//        File file = fileChooser.showSaveDialog(stage1);
 //        if (file != null){
 //            selectFile = file.getAbsolutePath();
 //            System.out.println(selectFile);
 //        }
-//        FileInputStream file1 = new FileInputStream("C:\\Users\\79991\\Desktop\\shablon.xlsx");
+//        String f = "src/sample/shablon.xlsx";
+//        String f1 = "C:\\Users\\79991\\Desktop\\DinamoProtocols\\src\\sample\\shablon.xlsx";
+//        String test = "C:\\Users\\79991\\Desktop\\pr_m_z_k.xlsx";
+//        FileInputStream file1 = new FileInputStream(f);
 //        XSSFWorkbook wb = new XSSFWorkbook(file1);
 //        for (int i = wb.getNumberOfSheets() - 1; i >= 0; i--){
-//            if(!wb.getSheetName(i).equals("КРОСС М итог"))
+//            if(i != 8)
 //                wb.removeSheetAt(i);
 //        }
-//        FileOutputStream out = new FileOutputStream(new File("C:\\Users\\79991\\Desktop\\savetest1.xlsx"));
+//        FileOutputStream out = new FileOutputStream(new File("C:\\Users\\79991\\Desktop\\pr_m_z_d.xlsx"));
 //        wb.write(out);
 //        file1.close();
 //        out.close();

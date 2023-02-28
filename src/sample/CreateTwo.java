@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class CreateController {
+public class CreateTwo {
 
     @FXML
     private ResourceBundle resources;
@@ -21,29 +21,32 @@ public class CreateController {
     private URL location;
 
     @FXML
+    private Button newListTwoParticipants;
+
+    @FXML
     private ImageView imageLogo;
 
     @FXML
-    private Button newParticipants;
+    private Button resultTwoPaticipants;
 
     @FXML
-    private Button newListParticipants;
-
-    @FXML
-    private Button resultPaticipants;
+    private Button newTwoParticipants;
 
     @FXML
     private Button back;
+
+    @FXML
+    private ImageView imageBack;
 
 
     @FXML
     void initialize() {
 
+
     }
 
     @FXML
-    public void back(javafx.event.ActionEvent event) throws IOException {
-
+    public void back() throws IOException {
         Stage stage = (Stage) back.getScene().getWindow();
         stage.close();
 
@@ -56,8 +59,8 @@ public class CreateController {
     }
 
     @FXML
-    public void createAction(javafx.event.ActionEvent event) throws IOException{
-        Stage stage = (Stage) newParticipants.getScene().getWindow();
+    public void setNewTwoParticipants() throws IOException {
+        Stage stage = (Stage) newTwoParticipants.getScene().getWindow();
         stage.close();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/newParticipants.fxml"));
@@ -69,8 +72,8 @@ public class CreateController {
     }
 
     @FXML
-    public void createActionList(javafx.event.ActionEvent event) throws IOException{
-        Stage stage = (Stage) newListParticipants.getScene().getWindow();
+    public void setNewListTwoParticipants() throws IOException {
+        Stage stage = (Stage) newListTwoParticipants.getScene().getWindow();
         stage.close();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/newListParticipants.fxml"));
@@ -82,8 +85,8 @@ public class CreateController {
     }
 
     @FXML
-    public void createActionResult(javafx.event.ActionEvent event) throws IOException{
-        Stage stage = (Stage) resultPaticipants.getScene().getWindow();
+    public void setResultTwoPaticipants() throws IOException {
+        Stage stage = (Stage) resultTwoPaticipants.getScene().getWindow();
         stage.close();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/resultParticipant.fxml"));
@@ -93,25 +96,4 @@ public class CreateController {
         stage.setScene(new Scene(root));
         stage.show();
     }
-
-
 }
-//        newParticipants.setOnAction(event -> {
-//            newParticipants.getScene().getWindow().hide();
-//
-//
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(getClass().getResource("/sample/newParticipants.fxml"));
-//            try {
-//                loader.load();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            Parent root = loader.getRoot();
-//            Stage stage = new Stage();
-//            stage.setScene(new Scene(root, 700, 400));
-//            stage.setTitle("DinPro");
-//            stage.showAndWait();
-//        });
-

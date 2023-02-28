@@ -4,14 +4,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Iterator;
+import java.text.Collator;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
-import com.mysql.cj.util.StringUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -21,12 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -56,11 +50,15 @@ public class NewListParticipants {
     @FXML
     private Button back;
 
+    @FXML
+    private TextField createZabeg;
+
 
 
 
     @FXML
     void initialize() {
+
 
     }
 
@@ -70,7 +68,7 @@ public class NewListParticipants {
         Stage stage = (Stage) back.getScene().getWindow();
         stage.close();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/create.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SelectionCriteria.stage1));
         Parent root = (Parent) loader.load();
         stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -118,18 +116,52 @@ public class NewListParticipants {
                     i++;
                 }
             }
+            String str1 = "Женщины";
+            String str2 = SelectionCriteria.pol;
+            String gender = "null3";
+            Collator collator = Collator.getInstance(new Locale("ru", "RU"));
+            collator.setStrength(Collator.PRIMARY);
+            int result = collator.compare(str1, str2);
+            if (result < 0){
+                gender = "M";
+            }else if (result == 0){
+                gender = "W";
+            }
+            String str3 = "Двоеборье";
+            String str4 = SelectionCriteria.vid;
+            String table = "";
+            int e = 0;
+            result = collator.compare(str3, str4);
+            if (result < 0){
+                table = Const.PARTICIPANTS_TABLE;
+                e = 1;
+            }else if (result == 0){
+                table = Const.TWO_PARTICIPANTS_TABLE;
+                e = 2;
+            }
             while (sheet.getRow(i) != null){
-                if (sheet.getRow(i).getCell(2) != null && sheet.getRow(i).getCell(2).getCellTypeEnum() != CellType.BLANK) {
+                if (sheet.getRow(i).getCell(2) != null && sheet.getRow(i).getCell(2).getCellTypeEnum() != CellType.BLANK && e == 1) {
                     databaseHandler.newListParticipants(sheet.getRow(i).getCell(1).getNumericCellValue(),
                             sheet.getRow(i).getCell(2).getStringCellValue(),
                             sheet.getRow(i).getCell(3).getStringCellValue(),
                             sheet.getRow(i).getCell(4).getNumericCellValue(),
                             sheet.getRow(i).getCell(5).getStringCellValue(),
-                            sheet.getRow(i).getCell(6).getNumericCellValue());
+                            sheet.getRow(i).getCell(6).getNumericCellValue(), gender, table, -1, Integer.parseInt(createZabeg.getText()));
+                    i ++;
+                }else if (sheet.getRow(i).getCell(3) != null && sheet.getRow(i).getCell(3).getCellTypeEnum() != CellType.BLANK && e == 2){
+                    databaseHandler.newListParticipants(sheet.getRow(i).getCell(2).getNumericCellValue(),
+                            sheet.getRow(i).getCell(3).getStringCellValue(),
+                            sheet.getRow(i).getCell(4).getStringCellValue(),
+                            sheet.getRow(i).getCell(5).getNumericCellValue(),
+                            sheet.getRow(i).getCell(6).getStringCellValue(),
+                            sheet.getRow(i).getCell(9).getNumericCellValue(), gender, table, sheet.getRow(i).getCell(1).getNumericCellValue(),
+                            Integer.parseInt(createZabeg.getText()));
                     i ++;
                 }else break;
             }
             file.close();
+            numberSheet.clear();
+            createZabeg.clear();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setHeaderText(null);
