@@ -10,7 +10,7 @@
     <children>
         <AnchorPane layoutY="105.0" prefHeight="295.0" prefWidth="700.0" style="-fx-background-color: #fafafa;">
             <children>
-                <Button fx:id="liveOn" layoutX="238.0" layoutY="221.0" onAction="#liveOn" mnemonicParsing="false" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Продолжить" textFill="#1e205d">
+                <Button fx:id="liveOn" layoutX="238.0" layoutY="221.0" mnemonicParsing="false" onAction="#liveOn" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Продолжить" textFill="#1e205d">
                     <font>
                         <Font name="Chiller" size="22.0" />
                     </font>
@@ -22,7 +22,7 @@
                     <graphic>
                         <ImageView fx:id="imageBack" fitHeight="53.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@assets/inf_back.png" />
+                                <Image url="@assets/inf_back.jpg" />
                             </image>
                         </ImageView>
                     </graphic>

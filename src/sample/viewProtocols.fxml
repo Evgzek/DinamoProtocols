@@ -14,12 +14,12 @@
     <children>
         <AnchorPane layoutY="105.0" prefHeight="295.0" prefWidth="700.0" style="-fx-background-color: #fafafa;">
             <children>
-                <Button fx:id="individProcotols" layoutX="196.0" layoutY="54.0" onAction="#viewIndividProtocol" mnemonicParsing="false" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Индивидуальные протоклы" textFill="#1e205d">
+                <Button fx:id="individProcotols" layoutX="196.0" layoutY="54.0" mnemonicParsing="false" onAction="#viewIndividProtocol" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Индивидуальные протоклы" textFill="#1e205d">
                     <font>
                         <Font name="Chiller" size="22.0" />
                     </font>
                 </Button>
-                <Button fx:id="teamsProtocols" layoutX="196.0" layoutY="134.0" onAction="#viewTeamsProtocol" mnemonicParsing="false" prefHeight="50.0" prefWidth="309.0" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Командные протоколы" textFill="#1e205d">
+                <Button fx:id="teamsProtocols" layoutX="196.0" layoutY="134.0" mnemonicParsing="false" onAction="#viewTeamsProtocol" prefHeight="50.0" prefWidth="309.0" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Командные протоколы" textFill="#1e205d">
                     <font>
                         <Font name="Chiller" size="22.0" />
                     </font>
@@ -31,7 +31,7 @@
                     <graphic>
                         <ImageView fx:id="imageBack" fitHeight="53.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@assets/inf_back.png" />
+                                <Image url="@assets/inf_back.jpg" />
                             </image>
                         </ImageView>
                     </graphic>

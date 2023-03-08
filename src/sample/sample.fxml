@@ -14,17 +14,22 @@
    <children>
       <AnchorPane layoutY="105.0" prefHeight="295.0" prefWidth="700.0" style="-fx-background-color: #fafafa;">
          <children>
-            <Button id="create" fx:id="create" layoutX="245.0" layoutY="47.0" mnemonicParsing="false" onAction="#createProtocols" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Создать протокол" textFill="#1e205d">
+            <Button id="create" fx:id="create" layoutX="244.0" layoutY="14.0" mnemonicParsing="false" onAction="#createProtocols" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Создать протокол" textFill="#1e205d">
                <font>
                   <Font name="Chiller" size="22.0" />
                </font>
             </Button>
-            <Button id="preview" fx:id="preview" layoutX="225.0" layoutY="123.0" mnemonicParsing="false" onAction="#viewProtocols" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Посмотреть протокол" textFill="#1e205d">
+            <Button id="preview" fx:id="preview" layoutX="225.0" layoutY="78.0" mnemonicParsing="false" onAction="#viewProtocols" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Посмотреть протокол" textFill="#1e205d">
                <font>
                   <Font name="Chiller" size="22.0" />
                </font>
             </Button>
-            <Button id="settings" fx:id="settings" layoutX="281.0" layoutY="199.0" mnemonicParsing="false" onAction="#testFunction" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Настройки" textFill="#1e205d">
+            <Button id="settings" fx:id="settings" layoutX="146.0" layoutY="148.0" mnemonicParsing="false" onAction="#deleteTable" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Очистить базу данных с участниками" textFill="#1e205d">
+               <font>
+                  <Font name="Chiller" size="22.0" />
+               </font>
+            </Button>
+            <Button id="settings" fx:id="teams_vk" layoutX="221.0" layoutY="218.0" onAction="#teamsVk" mnemonicParsing="false" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Добавить команду в/к" textFill="#1e205d">
                <font>
                   <Font name="Chiller" size="22.0" />
                </font>

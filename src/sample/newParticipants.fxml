@@ -37,7 +37,7 @@
                  <graphic>
                      <ImageView fx:id="imageBack" fitHeight="53.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
                          <image>
-                             <Image url="@assets/inf_back.png" />
+                             <Image url="@assets/inf_back.jpg" />
                          </image>
                      </ImageView>
                  </graphic>
@@ -45,6 +45,18 @@
             <TextField fx:id="createTarget" focusTraversable="false" layoutX="123.0" layoutY="132.0" promptText="направление мишени" />
             <TextField fx:id="createZabeg" focusTraversable="false" layoutX="407.0" layoutY="132.0" promptText="забег" />
             <CheckBox fx:id="v_k" layoutX="575.0" layoutY="246.0" mnemonicParsing="false" text="в/к" />
+            <Button fx:id="home" layoutX="607.0" layoutY="14.0" onAction="#setHome" mnemonicParsing="false" prefHeight="38.0" prefWidth="85.0" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" textFill="#1e205d">
+               <font>
+                  <Font name="Chiller" size="22.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="imageHome" fitHeight="53.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/menu.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children></AnchorPane>
         <Label layoutX="14.0" layoutY="65.0" prefHeight="38.0" prefWidth="241.0" text="DinamoProtocols" textFill="WHITE">
             <font>

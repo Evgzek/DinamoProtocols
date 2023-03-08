@@ -35,10 +35,26 @@ public class CreateController {
     @FXML
     private Button back;
 
+    @FXML
+    private Button home;
+
 
     @FXML
     void initialize() {
 
+    }
+
+    @FXML
+    public void setHome () throws IOException {
+        Stage stage = (Stage) home.getScene().getWindow();
+        stage.close();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/sample.fxml"));
+        Parent root = (Parent) loader.load();
+        stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML

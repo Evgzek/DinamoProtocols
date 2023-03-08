@@ -53,6 +53,9 @@ public class NewListParticipants {
     @FXML
     private TextField createZabeg;
 
+    @FXML
+    private Button home;
+
 
 
 
@@ -60,6 +63,19 @@ public class NewListParticipants {
     void initialize() {
 
 
+    }
+
+    @FXML
+    public void setHome () throws IOException {
+        Stage stage = (Stage) home.getScene().getWindow();
+        stage.close();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/sample.fxml"));
+        Parent root = (Parent) loader.load();
+        stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML

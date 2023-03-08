@@ -36,15 +36,27 @@
                <graphic>
                   <ImageView fx:id="imageBack" fitHeight="53.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@assets/inf_back.png" />
+                        <Image url="@assets/inf_back.jpg" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="shoot" layoutX="548.0" layoutY="221.0" onAction="#setShoot" mnemonicParsing="false" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="стрельба" textFill="#1e205d">
+            <Button fx:id="shoot" layoutX="548.0" layoutY="221.0" mnemonicParsing="false" onAction="#setShoot" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="стрельба" textFill="#1e205d">
                <font>
                   <Font name="Chiller" size="22.0" />
                </font>
+            </Button>
+            <Button fx:id="home" layoutX="612.0" layoutY="14.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="82.0" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" textFill="#1e205d">
+               <font>
+                  <Font name="Chiller" size="22.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="imageHome" fitHeight="53.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/menu.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
             </children></AnchorPane>
         <Label layoutX="14.0" layoutY="65.0" prefHeight="38.0" prefWidth="241.0" text="DinamoProtocols" textFill="WHITE">

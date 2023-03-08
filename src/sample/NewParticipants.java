@@ -55,6 +55,9 @@ public class NewParticipants {
     private CheckBox v_k;
 
     @FXML
+    private Button home;
+
+    @FXML
     void initialize() {
         Collator collator = Collator.getInstance(new Locale("ru", "RU"));
         collator.setStrength(Collator.PRIMARY);
@@ -65,6 +68,19 @@ public class NewParticipants {
             createTarget.setVisible(false);
         }
 
+    }
+
+    @FXML
+    public void setHome () throws IOException {
+        Stage stage = (Stage) home.getScene().getWindow();
+        stage.close();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/sample.fxml"));
+        Parent root = (Parent) loader.load();
+        stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML

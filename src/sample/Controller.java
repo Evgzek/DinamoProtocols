@@ -42,6 +42,9 @@ public class Controller {
     @FXML
     private Label title;
 
+    @FXML
+    private Button teams_vk;
+
 
 
     @FXML
@@ -166,8 +169,6 @@ public class Controller {
         stage.setScene(new Scene(root));
         stage.show();
 
-        DatabaseHandler db = new DatabaseHandler();
-        db.test();
 //        DatabaseHandler db = new DatabaseHandler();
 //        db.sortedPlace();
 //        FileChooser fileChooser = new FileChooser();
@@ -265,6 +266,24 @@ public class Controller {
 //        file3.close();
 //        file2.close();
         System.out.println("end");
+    }
+
+    public void deleteTable() throws ParseException, SQLException, ClassNotFoundException {
+        DatabaseHandler db = new DatabaseHandler();
+        db.test();
+    }
+
+    public void teamsVk() throws IOException {
+
+        Stage stage = (Stage) teams_vk.getScene().getWindow();
+        stage.close();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/newTeamVk.fxml"));
+        Parent root = (Parent) loader.load();
+        stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
 }
