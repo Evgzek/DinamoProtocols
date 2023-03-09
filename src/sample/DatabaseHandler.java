@@ -404,71 +404,77 @@ public class DatabaseHandler extends Configs{
         Statement statement1 = getDbConnection().createStatement();
         ResultSet resultSet = statement1.executeQuery(select);
         while (resultSet.next()){
+            if (resultSet.getInt("id") > 9){
+                System.out.println("rrr");
+                break;
+            }else System.out.println(resultSet.getInt("id"));
             String update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.W_1 + "d = null WHERE " + Const.TEAMS_TEAM
-                    + " = " + resultSet.getString(Const.TEAMS_TEAM) + ";";
+                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
             Statement statement2 = getDbConnection().createStatement();
             statement2.executeUpdate(update);
             update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.W_2 + "d = null WHERE " + Const.TEAMS_TEAM
-                    + " = " + resultSet.getString(Const.TEAMS_TEAM) + ";";
+                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
             statement2 = getDbConnection().createStatement();
             statement2.executeUpdate(update);
             update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_1 + "d = null WHERE " + Const.TEAMS_TEAM
-                    + " = " + resultSet.getString(Const.TEAMS_TEAM) + ";";
+                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
             statement2 = getDbConnection().createStatement();
             statement2.executeUpdate(update);
             update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_2 + "d = null WHERE " + Const.TEAMS_TEAM
-                    + " = " + resultSet.getString(Const.TEAMS_TEAM) + ";";
+                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
             statement2 = getDbConnection().createStatement();
             statement2.executeUpdate(update);
             update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_3 + "d = null WHERE " + Const.TEAMS_TEAM
-                    + " = " + resultSet.getString(Const.TEAMS_TEAM) + ";";
+                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
             statement2 = getDbConnection().createStatement();
             statement2.executeUpdate(update);
             update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_4 + "d = null WHERE " + Const.TEAMS_TEAM
-                    + " = " + resultSet.getString(Const.TEAMS_TEAM) + ";";
+                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
             statement2 = getDbConnection().createStatement();
             statement2.executeUpdate(update);
             update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.TEAMS_PLACE + "d = null WHERE " + Const.TEAMS_TEAM
-                    + " = " + resultSet.getString(Const.TEAMS_TEAM) + ";";
+                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
             statement2 = getDbConnection().createStatement();
             statement2.executeUpdate(update);
             update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.TEAMS_SUM_PLACE + "d = null WHERE " + Const.TEAMS_TEAM
-                    + " = " + resultSet.getString(Const.TEAMS_TEAM) + ";";
+                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
             statement2 = getDbConnection().createStatement();
             statement2.executeUpdate(update);
             update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.W_1 + "k = null WHERE " + Const.TEAMS_TEAM
-                    + " = " + resultSet.getString(Const.TEAMS_TEAM) + ";";
+                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
             statement2 = getDbConnection().createStatement();
             statement2.executeUpdate(update);
             update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.W_2 + "k = null WHERE " + Const.TEAMS_TEAM
-                    + " = " + resultSet.getString(Const.TEAMS_TEAM) + ";";
+                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
             statement2 = getDbConnection().createStatement();
             statement2.executeUpdate(update);
             update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_1 + "k = null WHERE " + Const.TEAMS_TEAM
-                    + " = " + resultSet.getString(Const.TEAMS_TEAM) + ";";
+                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
             statement2 = getDbConnection().createStatement();
             statement2.executeUpdate(update);
             update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_2 + "k = null WHERE " + Const.TEAMS_TEAM
-                    + " = " + resultSet.getString(Const.TEAMS_TEAM) + ";";
+                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
             statement2 = getDbConnection().createStatement();
             statement2.executeUpdate(update);
             update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_3 + "k = null WHERE " + Const.TEAMS_TEAM
-                    + " = " + resultSet.getString(Const.TEAMS_TEAM) + ";";
+                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
             statement2 = getDbConnection().createStatement();
             statement2.executeUpdate(update);
             update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_4 + "k = null WHERE " + Const.TEAMS_TEAM
-                    + " = " + resultSet.getString(Const.TEAMS_TEAM) + ";";
+                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
             statement2 = getDbConnection().createStatement();
             statement2.executeUpdate(update);
             update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.TEAMS_PLACE + "k = null WHERE " + Const.TEAMS_TEAM
-                    + " = " + resultSet.getString(Const.TEAMS_TEAM) + ";";
+                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
             statement2 = getDbConnection().createStatement();
             statement2.executeUpdate(update);
             update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.TEAMS_SUM_PLACE + "k = null WHERE " + Const.TEAMS_TEAM
-                    + " = " + resultSet.getString(Const.TEAMS_TEAM) + ";";
+                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
             statement2 = getDbConnection().createStatement();
             statement2.executeUpdate(update);
         }
+        String delete_t = "DELETE FROM " + Const.TEAMS_TABLE + " WHERE id > 9;";
+        getDbConnection().prepareStatement(delete_t).executeUpdate();
 //        String update = "UPDATE " + table + " SET " + Const.PARTICIPANTS_PLACE +
 //                " = " + i + " WHERE " + Const.PARTICIPANTS_NUMBER + " = " + number + ";";
 //        ResultSet resultSet = statement.executeQuery(select);
@@ -578,7 +584,7 @@ public class DatabaseHandler extends Configs{
                     cell = row.getCell(9);
                     while (resultSet3.next()){
                         if (resultSet.getString(Const.PARTICIPANTS_TEAMS).equals(Const.TEAMS_TEAM)
-                                || resultSet.getString(Const.PARTICIPANTS_TEAMS).equals("ДВВКУ")){
+                                || resultSet.getString(Const.PARTICIPANTS_TEAMS).equals("ДВВКУ") || resultSet.getString(Const.PARTICIPANTS_PLACE).equals("в/к")){
                             cell.setCellValue("в/к");
                             sos = 1;
                         }
@@ -686,7 +692,7 @@ public class DatabaseHandler extends Configs{
                     cell = row.getCell(17);
                     while (resultSet3.next()){
                         if (resultSet.getString(Const.PARTICIPANTS_TEAMS).equals(Const.TEAMS_TEAM)
-                                || resultSet.getString(Const.PARTICIPANTS_TEAMS).equals("ДВВКУ")){
+                                || resultSet.getString(Const.PARTICIPANTS_TEAMS).equals("ДВВКУ") || resultSet.getString(Const.PARTICIPANTS_PLACE).equals("в/к")){
                             cell.setCellValue("в/к");
                             sos = 1;
                         }
@@ -804,7 +810,8 @@ public class DatabaseHandler extends Configs{
         XSSFSheet sheet = wb.getSheetAt(0);
         select = "SELECT * FROM " + Const.TEAMS_TABLE + " ORDER BY " +
                 Const.TEAMS_SUM_PLACE + vid + " ASC;";
-
+        int place_t = 1;
+        int sos = 0;
         resultSet = statement.executeQuery(select);
         while (resultSet.next()){
             Row row = sheet.getRow(i);
@@ -832,14 +839,6 @@ public class DatabaseHandler extends Configs{
             cell.setCellValue(resultSet.getInt(Const.TEAMS_PLACE + vid));
             i++;
         }
-//        while (sheet.getRow(i) != null){
-//            Row row = sheet.getRow(i);
-//            for (int j = 1; j < 10; j++) {
-//                Cell cell = row.getCell(j);
-//                cell.setCellValue("");
-//            }
-//            i++;
-//        }
         out.close();
         FileOutputStream write = new FileOutputStream(new_file);
         wb.write(write);
