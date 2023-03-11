@@ -273,7 +273,7 @@ public class Controller {
         db.test();
     }
 
-    public void teamsVk() throws IOException {
+    public void teamsVk() throws IOException, SQLException, ClassNotFoundException {
 
         Stage stage = (Stage) teams_vk.getScene().getWindow();
         stage.close();
@@ -284,6 +284,7 @@ public class Controller {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(new Scene(root));
         stage.show();
+
     }
 
 }
