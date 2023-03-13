@@ -216,7 +216,7 @@ public class ViewIndividProtocols {
             f = "src/sample/pr_w_d.xlsx";
             l = "W";
         }else if (sorev == 1 && male == 1){
-            f = "src/sample/pr_w_z_k.xlsx";
+            f = "src/sample/pr_m_z_k.xlsx";
             l = "M";
         }else if (sorev == 2 && male == 1){
             f = "src/sample/pr_m_z_d.xlsx";
@@ -239,11 +239,12 @@ public class ViewIndividProtocols {
         DatabaseHandler db = new DatabaseHandler();
         int m = 0;
         if (sorev == 1){
-            db.sortedPlace(Const.NEW_PARTICIPANTS_TABLE, m);
+            db.sortedPlace(Const.NEW_PARTICIPANTS_TABLE, m, l, zabeg);
+            System.out.println("ALINA JOPA");
             db.convertExcel(selectFile, sorev, l, zabeg);
         }else if (sorev == 2){
             m = 1;
-            db.sortedPlace(Const.TWO_PARTICIPANTS_TABLE, m);
+            db.sortedPlace(Const.TWO_PARTICIPANTS_TABLE, m, l, zabeg);
             db.convertExcel(selectFile, sorev, l, zabeg);
         }else System.out.println("false");
 

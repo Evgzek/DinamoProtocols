@@ -314,27 +314,36 @@ public class DatabaseHandler extends Configs{
         getDbConnection().prepareStatement(update_sec).executeUpdate();
     }
 
-    public void sortedPlace(String table, int m) throws SQLException, ClassNotFoundException {
+    public void sortedPlace(String table, int m, String l, int zabeg) throws SQLException, ClassNotFoundException {
         if (m == 0){
             int i = 0;
             String sot;
             double time_leader = 0;
-            String select = "SELECT * FROM " + table + " ORDER BY " +
-                    Const.PARTICIPANTS_RESULT_KEF + " ASC;";
+            String select = "";
+            if (zabeg == 10){
+                select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_RESULT + " IS NOT NULL AND " +
+                        Const.PARTICIPANTS_GENDER + " = '" + l + "' ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + " ASC;";
+            }else {
+                select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_RESULT + " IS NOT NULL AND " +
+                        Const.PARTICIPANTS_GENDER + " = '" + l + "' AND " + Const.PARTICIPANTS_ZABEG + " = " + zabeg +
+                        " ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + " ASC;";
+            }
             Statement statement = getDbConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(select);
             while (resultSet.next()){
                 time_leader = resultSet.getDouble(Const.PARTICIPANTS_SECONDS);
-                System.out.println(time_leader);
                 break;
             }
             resultSet = statement.executeQuery(select);
             while (resultSet.next()){
+                System.out.println(resultSet.getString(Const.PARTICIPANTS_NAME));
+                System.out.println(i);
                 i++;
                 int number = resultSet.getInt(Const.PARTICIPANTS_NUMBER);
                 String update = "UPDATE " + table + " SET " + Const.PARTICIPANTS_PLACE +
                         " = " + i + " WHERE " + Const.PARTICIPANTS_NUMBER + " = " + number + ";";
                 getDbConnection().prepareStatement(update).executeUpdate();
+                System.out.println(resultSet.getString(Const.PARTICIPANTS_PLACE));
                 double time = resultSet.getDouble(Const.PARTICIPANTS_SECONDS);
                 time = time - time_leader;
                 int minute = 0;
@@ -345,22 +354,28 @@ public class DatabaseHandler extends Configs{
                 double f = e;
                 f = f * 100;
                 tens = (int) f;
-                System.out.println(tens);
                 if (tens < 10){
                     sot = "0" + tens;
                 }else sot = "" + tens;
                 minute = (int) (time/60);
                 seconds = (int) (time - minute*60);
-                System.out.println(sot);
                 String update_raznica = "UPDATE " + Const.NEW_PARTICIPANTS_TABLE + " SET " + Const.PARTICIPANTS_RAZNICA + " = '0:" +
                         minute + ":" + seconds + "." + sot + "' " + "WHERE "
                         + Const.PARTICIPANTS_NUMBER + " = '" + number + "';";
                 getDbConnection().prepareStatement(update_raznica).executeUpdate();
+                System.out.println(resultSet.getString(Const.PARTICIPANTS_PLACE));
         }
         }else if (m == 1){
             int i = 0;
-            String select = "SELECT * FROM " + table + " ORDER BY " +
-                    Const.PARTICIPANTS_SUM_POINTS_KEF + " DESC;";
+            String select = "";
+            if (zabeg == 10){
+                select = "SELECT * FROM " + Const.TWO_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_RESULT + " IS NOT NULL AND " +
+                        Const.PARTICIPANTS_GENDER + " = '" + l + "' ORDER BY " + Const.PARTICIPANTS_SUM_POINTS_KEF + " ASC;";
+            }else {
+                select = "SELECT * FROM " + Const.TWO_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_RESULT + " IS NOT NULL AND " +
+                        Const.PARTICIPANTS_GENDER + " = '" + l + "' AND " + Const.PARTICIPANTS_ZABEG + " = " + zabeg +
+                        " ORDER BY " + Const.PARTICIPANTS_SUM_POINTS_KEF + " ASC;";
+            }
             Statement statement = getDbConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(select);
             while (resultSet.next()){
@@ -535,11 +550,15 @@ public class DatabaseHandler extends Configs{
             String time = "";
             System.out.println(f);
             String select = "";
+            String select2 = "";
             int i = 0;
             if (zabeg == 10 && g == 1){
                 i = 12;
-                select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " ORDER BY " +
-                        Const.PARTICIPANTS_RESULT_KEF + " WHERE " + Const.PARTICIPANTS_GENDER + " = '" + l + "' ASC;";
+//                select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " ORDER BY " +
+//                        Const.PARTICIPANTS_RESULT_KEF + " WHERE " + Const.PARTICIPANTS_GENDER + " = '" + l + "' ASC;";
+                select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_RESULT + " IS NOT NULL AND " +
+                        Const.PARTICIPANTS_GENDER + " = '" + l + "' ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + " ASC;";
+
             }else if (zabeg == 10 && g == 2){
                 i = 16;
                 select = "SELECT * FROM " + Const.TWO_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_GENDER + " = '" + l + "' ORDER BY " +
@@ -548,7 +567,12 @@ public class DatabaseHandler extends Configs{
                 i = 12;
                 select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_GENDER + " = '" + l +
                         "' AND " + Const.PARTICIPANTS_ZABEG +
-                        " = " + zabeg + " ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + " ASC;";
+                        " = " + zabeg + " AND " + Const.PARTICIPANTS_RESULT + " IS NOT NULL " +
+                        " ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + " ASC;";
+                select2 = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_GENDER + " = '" + l +
+                        "' AND " + Const.PARTICIPANTS_ZABEG +
+                        " = " + zabeg + " AND " + Const.PARTICIPANTS_RESULT + " IS NULL " +
+                        " ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + " ASC;";
             }else if (g == 2){
                 i = 15;
                 select = "SELECT * FROM " + Const.TWO_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_GENDER + " = '" + l + "' AND "
@@ -730,6 +754,69 @@ public class DatabaseHandler extends Configs{
                     }else sos = 0;
                 }
             }
+            Statement statement4 = getDbConnection().createStatement();
+            ResultSet resultSet4 = statement4.executeQuery(select2);
+            while (resultSet4.next()){
+                Row row = sheet.getRow(i);
+                Cell cell = row.getCell(1);
+                cell.setCellValue(resultSet4.getInt(Const.PARTICIPANTS_NUMBER));
+                cell = row.getCell(2);
+                cell.setCellValue(resultSet4.getString(Const.PARTICIPANTS_NAME));
+                cell = row.getCell(3);
+                cell.setCellValue(resultSet4.getString(Const.PARTICIPANTS_TEAMS));
+                cell = row.getCell(4);
+                cell.setCellValue(resultSet4.getInt(Const.PARTICIPANTS_YEAR));
+                cell = row.getCell(5);
+                cell.setCellValue(resultSet4.getString(Const.PARTICIPANTS_GROUP));
+                cell = row.getCell(6);
+                cell.setCellValue(resultSet4.getDouble(Const.PARTICIPANTS_KEF));
+                cell = row.getCell(7);
+                if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
+                    cell.setCellValue("00:00:00.00");
+                }else {
+                    time = resultSet4.getString(Const.PARTICIPANTS_RESULT);
+                    cell.setCellValue(time);
+                }
+                cell = row.getCell(8);
+                if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
+                    cell.setCellValue("00:00:00.00");
+                }else {
+                    time = resultSet4.getString(Const.PARTICIPANTS_RESULT_KEF);
+                    cell.setCellValue(time);
+                }
+                cell = row.getCell(9);
+                while (resultSet3.next()){
+                    if (resultSet4.getString(Const.PARTICIPANTS_TEAMS).equals(Const.TEAMS_TEAM)
+                            || resultSet4.getString(Const.PARTICIPANTS_TEAMS).equals("ДВВКУ") || resultSet4.getString(Const.PARTICIPANTS_PLACE).equals("в/к")){
+                        cell.setCellValue("в/к");
+                        sos = 1;
+                    }
+                }
+                if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
+                    cell.setCellValue("DNS");
+                }else if (sos == 0){
+                    cell.setCellValue(place_k);
+                    String update = "UPDATE " + Const.NEW_PARTICIPANTS_TABLE + " SET " + Const.PARTICIPANTS_PLACE +
+                            " = " + place_k + " WHERE " + Const.PARTICIPANTS_NUMBER + " = " + resultSet4.getInt(Const.PARTICIPANTS_NUMBER) +
+                            ";";
+                    getDbConnection().prepareStatement(update).executeUpdate();
+                }
+
+                cell = row.getCell(10);
+                if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
+                    cell.setCellValue("DNS");
+                }else if (resultSet4.getInt(Const.PARTICIPANTS_PLACE) == 1){
+                    cell.setCellValue("00:00:00.00");
+                }else {
+                    time = resultSet4.getString(Const.PARTICIPANTS_RAZNICA);
+                    cell.setCellValue(time);
+                }
+
+                i++;
+                if (sos == 0){
+                    place_k++;
+                }else sos = 0;
+            }
             out.close();
             FileOutputStream write = new FileOutputStream(new_file);
             wb.write(write);
@@ -765,7 +852,9 @@ public class DatabaseHandler extends Configs{
             }
             ResultSet resultSet1 = statement1.executeQuery(count);
             while (resultSet1.next()) {
-                if (resultSet1.getString(Const.PARTICIPANTS_GENDER).equals("M")) {
+                if (resultSet1.getString(Const.PARTICIPANTS_RESULT) == null){
+
+                }else if (resultSet1.getString(Const.PARTICIPANTS_GENDER).equals("M")) {
                     j++;
                     if ((j == 4 && i == 2) || (j == 5 && i == 1)) {
                         break;
