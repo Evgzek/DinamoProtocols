@@ -56,4 +56,5 @@ public class Const {
     public static final String M_4 = "m_4_";
     public static final String TEAMS_SUM_PLACE = "sum_";
     public static final String TEAMS_PLACE = "place_";
+    public static final String V_K = "в_к";
 }

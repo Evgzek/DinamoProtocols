@@ -2,8 +2,12 @@ package sample;
 
 import java.io.*;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.Collator;
 import java.text.ParseException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -284,6 +288,24 @@ public class Controller {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(new Scene(root));
         stage.show();
+
+        DatabaseHandler db = new DatabaseHandler();
+        String select = "SELECT * FROM " + Const.TWO_PARTICIPANTS_TABLE;
+        Statement statement = db.getDbConnection().createStatement();
+        ResultSet resultSet = statement.executeQuery(select);
+        Collator collator = Collator.getInstance(new Locale("ru", "RU"));
+        collator.setStrength(Collator.PRIMARY);
+        while (resultSet.next()){
+            int re = collator.compare(resultSet.getString(Const.PARTICIPANTS_TEAMS), "ДВВКУ");
+            int nu = resultSet.getInt(Const.PARTICIPANTS_NUMBER);
+            if (re == 0){
+                System.out.println(resultSet.getString(Const.PARTICIPANTS_TEAMS));
+                System.out.println(resultSet.getString(Const.PARTICIPANTS_TEAMS).equals("ДВВКУ"));
+            }
+//            if (resultSet.getInt(Const.PARTICIPANTS_NUMBER) != 62){
+//                resultSet.getString(Const.PARTICIPANTS_TEAMS);
+//            }else System.out.println("6");
+        }
 
     }
 

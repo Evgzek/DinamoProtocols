@@ -99,7 +99,7 @@ public class DatabaseHandler extends Configs{
         }
 
         if (v_k == 1){
-            String update = "UPDATE " + table + " SET " + Const.PARTICIPANTS_PLACE + " = 'в/к' WHERE " + Const.PARTICIPANTS_NAME
+            String update = "UPDATE " + table + " SET " + Const.V_K + " = 1 WHERE " + Const.PARTICIPANTS_NAME
                     + " = '" + name + "';";
             getDbConnection().prepareStatement(update).executeUpdate();
         }
@@ -554,15 +554,17 @@ public class DatabaseHandler extends Configs{
             int i = 0;
             if (zabeg == 10 && g == 1){
                 i = 12;
-//                select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " ORDER BY " +
-//                        Const.PARTICIPANTS_RESULT_KEF + " WHERE " + Const.PARTICIPANTS_GENDER + " = '" + l + "' ASC;";
                 select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_RESULT + " IS NOT NULL AND " +
+                        Const.PARTICIPANTS_GENDER + " = '" + l + "' ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + " ASC;";
+                select2 = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_RESULT + " IS NULL AND " +
                         Const.PARTICIPANTS_GENDER + " = '" + l + "' ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + " ASC;";
 
             }else if (zabeg == 10 && g == 2){
                 i = 16;
-                select = "SELECT * FROM " + Const.TWO_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_GENDER + " = '" + l + "' ORDER BY " +
-                        Const.PARTICIPANTS_SUM_POINTS_KEF + " DESC;";
+                select = "SELECT * FROM " + Const.TWO_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_RESULT + " IS NOT NULL AND " +
+                        Const.PARTICIPANTS_GENDER + " = '" + l + "' ORDER BY " + Const.PARTICIPANTS_SUM_POINTS_KEF + " DESC;";
+                select2 = "SELECT * FROM " + Const.TWO_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_RESULT + " IS NULL AND " +
+                        Const.PARTICIPANTS_GENDER + " = '" + l + "' ORDER BY " + Const.PARTICIPANTS_SUM_POINTS_KEF + " DESC;";
             }else if (g == 1){
                 i = 12;
                 select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_GENDER + " = '" + l +
@@ -576,7 +578,10 @@ public class DatabaseHandler extends Configs{
             }else if (g == 2){
                 i = 15;
                 select = "SELECT * FROM " + Const.TWO_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_GENDER + " = '" + l + "' AND "
-            + Const.PARTICIPANTS_ZABEG + " = " + zabeg + " ORDER BY " +
+                        + Const.PARTICIPANTS_ZABEG + " = " + zabeg + " AND " + Const.PARTICIPANTS_RESULT + " IS NOT NULL " + " ORDER BY " +
+                        Const.PARTICIPANTS_SUM_POINTS_KEF + " DESC;";
+                select2 = "SELECT * FROM " + Const.TWO_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_GENDER + " = '" + l + "' AND "
+                        + Const.PARTICIPANTS_ZABEG + " = " + zabeg + " AND " + Const.PARTICIPANTS_RESULT + " IS NULL " + " ORDER BY " +
                         Const.PARTICIPANTS_SUM_POINTS_KEF + " DESC;";
             }
             File new_file = new File(f);
@@ -587,6 +592,7 @@ public class DatabaseHandler extends Configs{
             Statement statement3 = getDbConnection().createStatement();
             ResultSet resultSet3 = statement3.executeQuery(v_k);
             int place_k = 1;
+            int place_d = 1;
             int sos = 0;
             if (g == 1){
                 Statement statement = getDbConnection().createStatement();
@@ -626,7 +632,9 @@ public class DatabaseHandler extends Configs{
                     cell = row.getCell(9);
                     while (resultSet3.next()){
                         if (resultSet.getString(Const.PARTICIPANTS_TEAMS).equals(Const.TEAMS_TEAM)
-                                || resultSet.getString(Const.PARTICIPANTS_TEAMS).equals("ДВВКУ") || resultSet.getString(Const.PARTICIPANTS_PLACE).equals("в/к")){
+                                || resultSet.getString(Const.PARTICIPANTS_TEAMS).equals("ДВВКУ")
+                                || resultSet.getString(Const.PARTICIPANTS_PLACE).equals("в/к")
+                                || resultSet.getInt(Const.V_K) == 1){
                             cell.setCellValue("в/к");
                             sos = 1;
                         }
@@ -659,8 +667,6 @@ public class DatabaseHandler extends Configs{
             }else if (g == 2){
                 Statement statement = getDbConnection().createStatement();
                 ResultSet resultSet = statement.executeQuery(select);
-                sos = 0;
-                int place_d = 1;
                 while (resultSet.next()){
                     Row row = sheet.getRow(i);
                     Cell cell = row.getCell(1);
@@ -683,7 +689,7 @@ public class DatabaseHandler extends Configs{
                     }
                     cell = row.getCell(8);
                     if (resultSet.getString(Const.PARTICIPANTS_RESULT) == null){
-                        cell.setCellValue("0");
+                        cell.setCellValue(0);
                     }else {
                         cell.setCellValue(resultSet.getInt(Const.PARTICIPANTS_RESULT_POINTS));
                     }
@@ -697,25 +703,25 @@ public class DatabaseHandler extends Configs{
                     }
                     cell = row.getCell(11);
                     if (resultSet.getString(Const.PARTICIPANTS_RESULT) == null){
-                        cell.setCellValue("0");
+                        cell.setCellValue(0);
                     }else {
                         cell.setCellValue(resultSet.getInt(Const.PARTICIPANTS_RESULT_KEF_POINTS));
                     }
                     cell = row.getCell(12);
                     if (resultSet.getString(Const.PARTICIPANTS_RESULT) == null){
-                        cell.setCellValue("0");
+                        cell.setCellValue(0);
                     }else {
                         cell.setCellValue(resultSet.getInt(Const.PARTICIPANTS_SHOOT));
                     }
                     cell = row.getCell(13);
                     if (resultSet.getString(Const.PARTICIPANTS_RESULT) == null){
-                        cell.setCellValue("0");
+                        cell.setCellValue(0);
                     }else {
                         cell.setCellValue(resultSet.getInt(Const.PARTICIPANTS_SHOOT_POINTS));
                     }
                     cell = row.getCell(14);
                     if (resultSet.getString(Const.PARTICIPANTS_RESULT) == null){
-                        cell.setCellValue("0");
+                        cell.setCellValue(0);
                     }else {
                         cell.setCellValue(resultSet.getInt(Const.PARTICIPANTS_SUM_POINTS));
                     }
@@ -723,22 +729,46 @@ public class DatabaseHandler extends Configs{
                     if (resultSet.getString(Const.PARTICIPANTS_RESULT) == null){
                         cell.setCellValue("б/р");
                     }else {
-                        cell.setCellValue(resultSet.getInt(Const.PARTICIPANTS_DISCHARGE));
+                        cell.setCellValue(resultSet.getString(Const.PARTICIPANTS_DISCHARGE));
                     }
                     cell = row.getCell(16);
                     if (resultSet.getString(Const.PARTICIPANTS_RESULT) == null){
-                        cell.setCellValue("0");
+                        cell.setCellValue(0);
                     }else {
                         cell.setCellValue(resultSet.getInt(Const.PARTICIPANTS_SUM_POINTS_KEF));
                     }
                     cell = row.getCell(17);
+                    String teamddd = resultSet.getString(Const.PARTICIPANTS_TEAMS);
+                    String str1 = teamddd;
+                    Collator collator = Collator.getInstance(new Locale("ru", "RU"));
+                    collator.setStrength(Collator.PRIMARY);
+                    int result = collator.compare(str1, resultSet.getString(Const.PARTICIPANTS_TEAMS));
+                    result = collator.compare(resultSet.getString(Const.PARTICIPANTS_TEAMS), "ДВВКУ");
+                    if (result == 0){
+                        System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+                    }
                     while (resultSet3.next()){
-                        if (resultSet.getString(Const.PARTICIPANTS_TEAMS).equals(Const.TEAMS_TEAM)
-                                || resultSet.getString(Const.PARTICIPANTS_TEAMS).equals("ДВВКУ") || resultSet.getString(Const.PARTICIPANTS_PLACE).equals("в/к")){
+                        int result2 = collator.compare(str1, resultSet3.getString(Const.TEAMS_TEAM));
+                        int result3 = collator.compare(str1, "ДВВКУ");
+                        int result4 = collator.compare(teamddd, "ДВВКУ");
+                        result4 = collator.compare(resultSet.getString(Const.PARTICIPANTS_TEAMS), "ДВВКУ");
+                        if (result2 == 0 || result3 == 0 || result4 == 0){
                             cell.setCellValue("в/к");
                             sos = 1;
+                            System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+                        }else System.out.println("EEEEEEEEEEEEEEEEEEEE");
+                        if (teamddd.equals("ДВВКУ")){
+                            System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYY");
+                        }else System.out.println("UUUUUUUUUUUUUUUUUU");
+                        if (resultSet.getString(Const.PARTICIPANTS_TEAMS).equals("ДВВКУ")){
+                            System.out.println(resultSet.getString(Const.PARTICIPANTS_TEAMS));
+                            System.out.println(resultSet.getString(Const.PARTICIPANTS_TEAMS).equals("ДВВКУ"));
+                        }
+                        if (result == 0){
+                            System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
                         }
                     }
+                    System.out.println(resultSet.getString(Const.PARTICIPANTS_TEAMS));
                     if (resultSet.getString(Const.PARTICIPANTS_RESULT) == null){
                         cell.setCellValue("DNS");
                     }else if (sos == 0){
@@ -754,68 +784,169 @@ public class DatabaseHandler extends Configs{
                     }else sos = 0;
                 }
             }
-            Statement statement4 = getDbConnection().createStatement();
-            ResultSet resultSet4 = statement4.executeQuery(select2);
-            while (resultSet4.next()){
-                Row row = sheet.getRow(i);
-                Cell cell = row.getCell(1);
-                cell.setCellValue(resultSet4.getInt(Const.PARTICIPANTS_NUMBER));
-                cell = row.getCell(2);
-                cell.setCellValue(resultSet4.getString(Const.PARTICIPANTS_NAME));
-                cell = row.getCell(3);
-                cell.setCellValue(resultSet4.getString(Const.PARTICIPANTS_TEAMS));
-                cell = row.getCell(4);
-                cell.setCellValue(resultSet4.getInt(Const.PARTICIPANTS_YEAR));
-                cell = row.getCell(5);
-                cell.setCellValue(resultSet4.getString(Const.PARTICIPANTS_GROUP));
-                cell = row.getCell(6);
-                cell.setCellValue(resultSet4.getDouble(Const.PARTICIPANTS_KEF));
-                cell = row.getCell(7);
-                if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
-                    cell.setCellValue("00:00:00.00");
-                }else {
-                    time = resultSet4.getString(Const.PARTICIPANTS_RESULT);
-                    cell.setCellValue(time);
-                }
-                cell = row.getCell(8);
-                if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
-                    cell.setCellValue("00:00:00.00");
-                }else {
-                    time = resultSet4.getString(Const.PARTICIPANTS_RESULT_KEF);
-                    cell.setCellValue(time);
-                }
-                cell = row.getCell(9);
-                while (resultSet3.next()){
-                    if (resultSet4.getString(Const.PARTICIPANTS_TEAMS).equals(Const.TEAMS_TEAM)
-                            || resultSet4.getString(Const.PARTICIPANTS_TEAMS).equals("ДВВКУ") || resultSet4.getString(Const.PARTICIPANTS_PLACE).equals("в/к")){
-                        cell.setCellValue("в/к");
-                        sos = 1;
+            if (g == 1){
+                Statement statement4 = getDbConnection().createStatement();
+                ResultSet resultSet4 = statement4.executeQuery(select2);
+                while (resultSet4.next()){
+                    Row row = sheet.getRow(i);
+                    Cell cell = row.getCell(1);
+                    cell.setCellValue(resultSet4.getInt(Const.PARTICIPANTS_NUMBER));
+                    cell = row.getCell(2);
+                    cell.setCellValue(resultSet4.getString(Const.PARTICIPANTS_NAME));
+                    cell = row.getCell(3);
+                    cell.setCellValue(resultSet4.getString(Const.PARTICIPANTS_TEAMS));
+                    cell = row.getCell(4);
+                    cell.setCellValue(resultSet4.getInt(Const.PARTICIPANTS_YEAR));
+                    cell = row.getCell(5);
+                    cell.setCellValue(resultSet4.getString(Const.PARTICIPANTS_GROUP));
+                    cell = row.getCell(6);
+                    cell.setCellValue(resultSet4.getDouble(Const.PARTICIPANTS_KEF));
+                    cell = row.getCell(7);
+                    if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
+                        cell.setCellValue("00:00:00.00");
+                    }else {
+                        time = resultSet4.getString(Const.PARTICIPANTS_RESULT);
+                        cell.setCellValue(time);
                     }
-                }
-                if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
-                    cell.setCellValue("DNS");
-                }else if (sos == 0){
-                    cell.setCellValue(place_k);
-                    String update = "UPDATE " + Const.NEW_PARTICIPANTS_TABLE + " SET " + Const.PARTICIPANTS_PLACE +
-                            " = " + place_k + " WHERE " + Const.PARTICIPANTS_NUMBER + " = " + resultSet4.getInt(Const.PARTICIPANTS_NUMBER) +
-                            ";";
-                    getDbConnection().prepareStatement(update).executeUpdate();
+                    cell = row.getCell(8);
+                    if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
+                        cell.setCellValue("00:00:00.00");
+                    }else {
+                        time = resultSet4.getString(Const.PARTICIPANTS_RESULT_KEF);
+                        cell.setCellValue(time);
+                    }
+                    cell = row.getCell(9);
+                    while (resultSet3.next()){
+                        if (resultSet4.getString(Const.PARTICIPANTS_TEAMS).equals(Const.TEAMS_TEAM)
+                                || resultSet4.getString(Const.PARTICIPANTS_TEAMS).equals("ДВВКУ")
+                                || resultSet4.getString(Const.PARTICIPANTS_PLACE).equals("в/к")){
+                            cell.setCellValue("в/к");
+                            sos = 1;
+                        }
+                    }
+                    if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
+                        cell.setCellValue("DNS");
+                    }else if (sos == 0){
+                        cell.setCellValue(place_k);
+                        String update = "UPDATE " + Const.NEW_PARTICIPANTS_TABLE + " SET " + Const.PARTICIPANTS_PLACE +
+                                " = " + place_k + " WHERE " + Const.PARTICIPANTS_NUMBER + " = " + resultSet4.getInt(Const.PARTICIPANTS_NUMBER) +
+                                ";";
+                        getDbConnection().prepareStatement(update).executeUpdate();
+                    }
+
+                    cell = row.getCell(10);
+                    if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
+                        cell.setCellValue("DNS");
+                    }else if (resultSet4.getInt(Const.PARTICIPANTS_PLACE) == 1){
+                        cell.setCellValue("00:00:00.00");
+                    }else {
+                        time = resultSet4.getString(Const.PARTICIPANTS_RAZNICA);
+                        cell.setCellValue(time);
+                    }
+
+                    i++;
+                    if (sos == 0){
+                        place_k++;
+                    }else sos = 0;
                 }
 
-                cell = row.getCell(10);
-                if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
-                    cell.setCellValue("DNS");
-                }else if (resultSet4.getInt(Const.PARTICIPANTS_PLACE) == 1){
-                    cell.setCellValue("00:00:00.00");
-                }else {
-                    time = resultSet4.getString(Const.PARTICIPANTS_RAZNICA);
-                    cell.setCellValue(time);
+            }else if (g == 2){
+                Statement statement4 = getDbConnection().createStatement();
+                ResultSet resultSet4 = statement4.executeQuery(select2);
+                while (resultSet4.next()){
+                    Row row = sheet.getRow(i);
+                    Cell cell = row.getCell(1);
+                    cell.setCellValue(resultSet4.getInt(Const.PARTICIPANTS_TARGET));
+                    cell = row.getCell(2);
+                    cell.setCellValue(resultSet4.getInt(Const.PARTICIPANTS_NUMBER));
+                    cell = row.getCell(3);
+                    cell.setCellValue(resultSet4.getString(Const.PARTICIPANTS_NAME));
+                    cell = row.getCell(4);
+                    cell.setCellValue(resultSet4.getString(Const.PARTICIPANTS_TEAMS));
+                    cell = row.getCell(5);
+                    cell.setCellValue(resultSet4.getInt(Const.PARTICIPANTS_YEAR));
+                    cell = row.getCell(6);
+                    cell.setCellValue(resultSet4.getString(Const.PARTICIPANTS_GROUP));
+                    cell = row.getCell(7);
+                    if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
+                        cell.setCellValue("00:00:00.00");
+                    }else {
+                        cell.setCellValue(resultSet4.getString(Const.PARTICIPANTS_RESULT));
+                    }
+                    cell = row.getCell(8);
+                    if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
+                        cell.setCellValue("0");
+                    }else {
+                        cell.setCellValue(resultSet4.getInt(Const.PARTICIPANTS_RESULT_POINTS));
+                    }
+                    cell = row.getCell(9);
+                    cell.setCellValue(resultSet4.getDouble(Const.PARTICIPANTS_KEF));
+                    cell = row.getCell(10);
+                    if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
+                        cell.setCellValue("00:00:00.00");
+                    }else {
+                        cell.setCellValue(resultSet4.getString(Const.PARTICIPANTS_RESULT_KEF));
+                    }
+                    cell = row.getCell(11);
+                    if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
+                        cell.setCellValue("0");
+                    }else {
+                        cell.setCellValue(resultSet4.getInt(Const.PARTICIPANTS_RESULT_KEF_POINTS));
+                    }
+                    cell = row.getCell(12);
+                    if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
+                        cell.setCellValue("0");
+                    }else {
+                        cell.setCellValue(resultSet4.getInt(Const.PARTICIPANTS_SHOOT));
+                    }
+                    cell = row.getCell(13);
+                    if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
+                        cell.setCellValue("0");
+                    }else {
+                        cell.setCellValue(resultSet4.getInt(Const.PARTICIPANTS_SHOOT_POINTS));
+                    }
+                    cell = row.getCell(14);
+                    if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
+                        cell.setCellValue("0");
+                    }else {
+                        cell.setCellValue(resultSet4.getInt(Const.PARTICIPANTS_SUM_POINTS));
+                    }
+                    cell = row.getCell(15);
+                    if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
+                        cell.setCellValue("б/р");
+                    }else {
+                        cell.setCellValue(resultSet4.getInt(Const.PARTICIPANTS_DISCHARGE));
+                    }
+                    cell = row.getCell(16);
+                    if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
+                        cell.setCellValue("0");
+                    }else {
+                        cell.setCellValue(resultSet4.getInt(Const.PARTICIPANTS_SUM_POINTS_KEF));
+                    }
+                    cell = row.getCell(17);
+                    while (resultSet3.next()){
+                        if (resultSet4.getString(Const.PARTICIPANTS_TEAMS).equals(Const.TEAMS_TEAM)
+                                || resultSet4.getString(Const.PARTICIPANTS_TEAMS).equals("ДВВКУ")
+                                || resultSet4.getString(Const.PARTICIPANTS_PLACE).equals("в/к")
+                                || resultSet4.getInt(Const.V_K) == 1){
+                            cell.setCellValue("в/к");
+                            sos = 1;
+                        }
+                    }
+                    if (resultSet4.getString(Const.PARTICIPANTS_RESULT) == null){
+                        cell.setCellValue("DNS");
+                    }else if (sos == 0){
+                        cell.setCellValue(place_d);
+                        String update = "UPDATE " + Const.NEW_PARTICIPANTS_TABLE + " SET " + Const.PARTICIPANTS_PLACE +
+                                " = " + place_d + " WHERE " + Const.PARTICIPANTS_NUMBER + " = " + resultSet4.getInt(Const.PARTICIPANTS_NUMBER) +
+                                ";";
+                        getDbConnection().prepareStatement(update).executeUpdate();
+                    }
+                    i++;
+                    if (sos == 0){
+                        place_d++;
+                    }else sos = 0;
                 }
-
-                i++;
-                if (sos == 0){
-                    place_k++;
-                }else sos = 0;
             }
             out.close();
             FileOutputStream write = new FileOutputStream(new_file);
