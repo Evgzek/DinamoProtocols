@@ -16,11 +16,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
 public class Controller {
@@ -288,24 +286,6 @@ public class Controller {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(new Scene(root));
         stage.show();
-
-        DatabaseHandler db = new DatabaseHandler();
-        String select = "SELECT * FROM " + Const.TWO_PARTICIPANTS_TABLE;
-        Statement statement = db.getDbConnection().createStatement();
-        ResultSet resultSet = statement.executeQuery(select);
-        Collator collator = Collator.getInstance(new Locale("ru", "RU"));
-        collator.setStrength(Collator.PRIMARY);
-        while (resultSet.next()){
-            int re = collator.compare(resultSet.getString(Const.PARTICIPANTS_TEAMS), "ДВВКУ");
-            int nu = resultSet.getInt(Const.PARTICIPANTS_NUMBER);
-            if (re == 0){
-                System.out.println(resultSet.getString(Const.PARTICIPANTS_TEAMS));
-                System.out.println(resultSet.getString(Const.PARTICIPANTS_TEAMS).equals("ДВВКУ"));
-            }
-//            if (resultSet.getInt(Const.PARTICIPANTS_NUMBER) != 62){
-//                resultSet.getString(Const.PARTICIPANTS_TEAMS);
-//            }else System.out.println("6");
-        }
 
     }
 
