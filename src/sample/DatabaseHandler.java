@@ -504,7 +504,7 @@ public class DatabaseHandler extends Configs{
         }
     }
 
-    public void convertExcel (String f, int g, String l, double zabeg) throws IOException, InvalidFormatException, SQLException, ClassNotFoundException {
+    public void convertExcel (String f, int g, String l, double zabeg, int data, int startZabega, String daTa, String startzabega) throws IOException, InvalidFormatException, SQLException, ClassNotFoundException {
         try {
             String time = "";
             System.out.println(f);
@@ -517,13 +517,14 @@ public class DatabaseHandler extends Configs{
                         Const.PARTICIPANTS_GENDER + " = '" + l + "' ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + " ASC;";
                 select2 = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_RESULT + " IS NULL AND " +
                         Const.PARTICIPANTS_GENDER + " = '" + l + "' ORDER BY " + Const.PARTICIPANTS_RESULT_KEF + " ASC;";
-
+                startZabega = 0;
             }else if (zabeg == 10 && g == 2){
                 i = 16;
                 select = "SELECT * FROM " + Const.TWO_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_RESULT + " IS NOT NULL AND " +
                         Const.PARTICIPANTS_GENDER + " = '" + l + "' ORDER BY " + Const.PARTICIPANTS_SUM_POINTS_KEF + " DESC;";
                 select2 = "SELECT * FROM " + Const.TWO_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_RESULT + " IS NULL AND " +
                         Const.PARTICIPANTS_GENDER + " = '" + l + "' ORDER BY " + Const.PARTICIPANTS_SUM_POINTS_KEF + " DESC;";
+                startZabega = 0;
             }else if (g == 1){
                 i = 12;
                 select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " WHERE " + Const.PARTICIPANTS_GENDER + " = '" + l +
@@ -554,6 +555,14 @@ public class DatabaseHandler extends Configs{
             int place_d = 1;
             int sos = 0;
             if (g == 1){
+                Row row1 = sheet.getRow(data);
+                Cell cell1 = row1.getCell(0);
+                cell1.setCellValue(daTa);
+                if (startZabega != 0){
+                    row1 = sheet.getRow(startZabega);
+                    cell1 = row1.getCell(0);
+                    cell1.setCellValue(startzabega);
+                }
                 Statement statement = getDbConnection().createStatement();
                 ResultSet resultSet = statement.executeQuery(select);
                 String str1 = "M";
@@ -628,6 +637,14 @@ public class DatabaseHandler extends Configs{
                     }else sos = 0;
                 }
             }else if (g == 2){
+                Row row1 = sheet.getRow(data);
+                Cell cell1 = row1.getCell(0);
+                cell1.setCellValue(daTa);
+                if (startZabega != 0){
+                    row1 = sheet.getRow(startZabega);
+                    cell1 = row1.getCell(0);
+                    cell1.setCellValue(startzabega);
+                }
                 Statement statement = getDbConnection().createStatement();
                 ResultSet resultSet = statement.executeQuery(select);
                 while (resultSet.next()){

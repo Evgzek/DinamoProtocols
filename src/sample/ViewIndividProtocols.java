@@ -11,10 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -91,9 +88,16 @@ public class ViewIndividProtocols {
     @FXML
     private Button home;
 
+    @FXML
+    private TextField startZabega;
+
+    @FXML
+    private TextField data;
+
 
     @FXML
     void initialize() {
+        startZabega.setVisible(false);
     }
 
     @FXML
@@ -124,42 +128,49 @@ public class ViewIndividProtocols {
     public void setWhat_1(){
         what.setText(what_1.getText());
         zabeg = 1;
+        startZabega.setVisible(true);
     }
 
     @FXML
     public void setWhat_3(){
         what.setText(what_3.getText());
         zabeg = 3;
+        startZabega.setVisible(true);
     }
 
     @FXML
     public void setWhat_4(){
         what.setText(what_4.getText());
         zabeg = 4;
+        startZabega.setVisible(true);
     }
 
     @FXML
     public void setWhat_5(){
         what.setText(what_5.getText());
         zabeg = 5;
+        startZabega.setVisible(true);
     }
 
     @FXML
     public void setWhat_6(){
         what.setText(what_6.getText());
         zabeg = 6;
+        startZabega.setVisible(true);
     }
 
     @FXML
     public void setWhat_2(){
         what.setText(what_2.getText());
         zabeg = 2;
+        startZabega.setVisible(true);
     }
 
     @FXML
     public void setAll_race(){
         what.setText(all_race.getText());
         zabeg = 10;
+        startZabega.setVisible(false);
     }
 
     @FXML
@@ -199,6 +210,8 @@ public class ViewIndividProtocols {
         File file = fileChooser.showSaveDialog(stage1);
         String f = "";
         String l = "";
+        int startZabega1 = 0;
+        int data1 = 0;
         if (file != null){
             selectFile = file.getAbsolutePath();
             System.out.println(selectFile);
@@ -206,27 +219,39 @@ public class ViewIndividProtocols {
         if (sorev == 1 && male == 1 && zabeg == 10){
             f = "src/sample/pr_m_k.xlsx";
             l = "M";
+            data1 = 5;
         }else if (sorev == 2 && male == 1 && zabeg == 10){
             f = "src/sample/pr_m_d.xlsx";
             l = "M";
+            data1 = 5;
         }else if (sorev == 1 && male == 2 && zabeg == 10){
             f = "src/sample/pr_w_k.xlsx";
             l = "W";
+            data1 = 5;
         }else if (sorev == 2 && male == 2 & zabeg == 10){
             f = "src/sample/pr_w_d.xlsx";
             l = "W";
+            data1 = 5;
         }else if (sorev == 1 && male == 1){
             f = "src/sample/pr_m_z_k.xlsx";
             l = "M";
+            data1 = 5;
+            startZabega1 = 8;
         }else if (sorev == 2 && male == 1){
             f = "src/sample/pr_m_z_d.xlsx";
             l = "M";
+            data1 = 4;
+            startZabega1 = 10;
         }else if (sorev == 1 && male == 2){
             f = "src/sample/pr_w_z_k.xlsx";
             l = "W";
+            data1 = 5;
+            startZabega1 = 8;
         }else if (sorev == 2 && male == 2){
             f = "src/sample/pr_w_z_d.xlsx";
             l = "W";
+            data1 = 4;
+            startZabega1 = 10;
         }
 
         FileInputStream file1 = new FileInputStream(f);
@@ -241,12 +266,14 @@ public class ViewIndividProtocols {
         if (sorev == 1){
             db.sortedPlace(Const.NEW_PARTICIPANTS_TABLE, m, l, zabeg);
             System.out.println("ALINA JOPA");
-            db.convertExcel(selectFile, sorev, l, zabeg);
+            db.convertExcel(selectFile, sorev, l, zabeg, data1, startZabega1, data.getText(), zabeg + " ЗАБЕГ НАЧАЛО В " + startZabega.getText());
         }else if (sorev == 2){
             m = 1;
             db.sortedPlace(Const.TWO_PARTICIPANTS_TABLE, m, l, zabeg);
-            db.convertExcel(selectFile, sorev, l, zabeg);
+            db.convertExcel(selectFile, sorev, l, zabeg, data1, startZabega1, data.getText(), zabeg + " ЗАБЕГ НАЧАЛО В " + startZabega.getText());
         }else System.out.println("false");
+        data.clear();
+        startZabega.clear();
 
 
     }
