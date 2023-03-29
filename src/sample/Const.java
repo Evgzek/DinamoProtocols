@@ -4,7 +4,6 @@ public class Const {
     public static final String PARTICIPANTS_TABLE = "`participants`";
     public static final String NEW_PARTICIPANTS_TABLE = "participants";
     public static final String TWO_PARTICIPANTS_TABLE = "two_participants";
-    public static final String PARTICIPANTS_PP = "п_п";
     public static final String PARTICIPANTS_NUMBER = "нагрудный_номер";
     public static final String PARTICIPANTS_NAME = "фамилия_и_имя";
     public static final String PARTICIPANTS_TEAMS = "команда";
@@ -43,8 +42,6 @@ public class Const {
     public static final String RUN_TABLE = "run";
     public static final String RUN_TIME_M = "time_m";
     public static final String RUN_RESULT_M = "result_m";
-    public static final String RUN_TIME_W = "time_w";
-    public static final String RUN_RESULT_W = "result_w";
     public static final String PARTICIPANTS_ZABEG = "забег";
     public static final String TEAMS_TABLE = "teams";
     public static final String TEAMS_TEAM = "team";

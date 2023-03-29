@@ -8,10 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -51,6 +48,9 @@ public class ViewTeamsProtocols {
 
     @FXML
     private Button home;
+
+    @FXML
+    private TextField data;
 
     @FXML
     public void setRace_1(){
@@ -106,37 +106,56 @@ public class ViewTeamsProtocols {
         int i = 0;
         if (sorev == 1){
             table = Const.NEW_PARTICIPANTS_TABLE;
-            f = "src/sample/pr_teams_k.xlsx";
+            String dir = System.getProperty("user.dir");
+            File filen = new File(dir + "/src/sample/xlsx/pr_teams_k.xlsx");
+            f = filen.getAbsolutePath();
             i = 10;
             vid = "k";
         }else if (sorev == 2){
             table = Const.TWO_PARTICIPANTS_TABLE;
-            f = "src/sample/pr_teams_d.xlsx";
+            String dir = System.getProperty("user.dir");
+            File filen = new File(dir + "/src/sample/xlsx/pr_teams_d.xlsx");
+            f = filen.getAbsolutePath();
             i = 12;
             vid = "d";
         }
         DatabaseHandler db = new DatabaseHandler();
-        db.teamProc(table, vid);
+        if (data.getText().equals("")){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Не введена дата!!!");
+            alert.showAndWait();
+        }else if (sorev == 0){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Не указан вид забега, по которому нужен протокол!!!");
+            alert.showAndWait();
+        } else{
+            db.teamProc(table, vid);
 
-        String selectFile = "";
-        Stage stage1 = new Stage();
-        stage1.setTitle("AAA");
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel File", "*.xlsx"));
-        File file = fileChooser.showSaveDialog(stage1);
-        if (file != null){
-            selectFile = file.getAbsolutePath();
-            System.out.println(selectFile);
+            String selectFile = "";
+            Stage stage1 = new Stage();
+            stage1.setTitle("AAA");
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel File", "*.xlsx"));
+            File file = fileChooser.showSaveDialog(stage1);
+            if (file != null){
+                selectFile = file.getAbsolutePath();
+                System.out.println(selectFile);
+            }
+
+            FileInputStream file1 = new FileInputStream(f);
+            XSSFWorkbook wb = new XSSFWorkbook(file1);
+            FileOutputStream out = new FileOutputStream(new File(selectFile));
+            wb.write(out);
+            file1.close();
+            out.close();
+            db.convertTeam(selectFile, i, vid, 3, data.getText());
+            data.clear();
         }
 
-        FileInputStream file1 = new FileInputStream(f);
-        XSSFWorkbook wb = new XSSFWorkbook(file1);
-        FileOutputStream out = new FileOutputStream(new File(selectFile));
-        wb.write(out);
-        file1.close();
-        out.close();
-
-        db.convertTeam(selectFile, i, vid);
     }
 }
 

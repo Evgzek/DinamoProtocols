@@ -95,8 +95,10 @@ public class ViewIndividProtocols {
     private TextField data;
 
 
+
     @FXML
     void initialize() {
+        startZabega.setText("e");
         startZabega.setVisible(false);
     }
 
@@ -128,6 +130,7 @@ public class ViewIndividProtocols {
     public void setWhat_1(){
         what.setText(what_1.getText());
         zabeg = 1;
+        startZabega.clear();
         startZabega.setVisible(true);
     }
 
@@ -135,6 +138,7 @@ public class ViewIndividProtocols {
     public void setWhat_3(){
         what.setText(what_3.getText());
         zabeg = 3;
+        startZabega.clear();
         startZabega.setVisible(true);
     }
 
@@ -142,6 +146,7 @@ public class ViewIndividProtocols {
     public void setWhat_4(){
         what.setText(what_4.getText());
         zabeg = 4;
+        startZabega.clear();
         startZabega.setVisible(true);
     }
 
@@ -149,6 +154,7 @@ public class ViewIndividProtocols {
     public void setWhat_5(){
         what.setText(what_5.getText());
         zabeg = 5;
+        startZabega.clear();
         startZabega.setVisible(true);
     }
 
@@ -156,6 +162,7 @@ public class ViewIndividProtocols {
     public void setWhat_6(){
         what.setText(what_6.getText());
         zabeg = 6;
+        startZabega.clear();
         startZabega.setVisible(true);
     }
 
@@ -163,6 +170,7 @@ public class ViewIndividProtocols {
     public void setWhat_2(){
         what.setText(what_2.getText());
         zabeg = 2;
+        startZabega.clear();
         startZabega.setVisible(true);
     }
 
@@ -170,6 +178,7 @@ public class ViewIndividProtocols {
     public void setAll_race(){
         what.setText(all_race.getText());
         zabeg = 10;
+        startZabega.setText("e");
         startZabega.setVisible(false);
     }
 
@@ -202,78 +211,109 @@ public class ViewIndividProtocols {
 
     @FXML
     public void setIndividProtocols() throws SQLException, ClassNotFoundException, IOException, InvalidFormatException {
-        String selectFile = "";
-        Stage stage1 = new Stage();
-        stage1.setTitle("AAA");
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel File", "*.xlsx"));
-        File file = fileChooser.showSaveDialog(stage1);
-        String f = "";
-        String l = "";
-        int startZabega1 = 0;
-        int data1 = 0;
-        if (file != null){
-            selectFile = file.getAbsolutePath();
-            System.out.println(selectFile);
-        }
-        if (sorev == 1 && male == 1 && zabeg == 10){
-            f = "src/sample/pr_m_k.xlsx";
-            l = "M";
-            data1 = 5;
-        }else if (sorev == 2 && male == 1 && zabeg == 10){
-            f = "src/sample/pr_m_d.xlsx";
-            l = "M";
-            data1 = 5;
-        }else if (sorev == 1 && male == 2 && zabeg == 10){
-            f = "src/sample/pr_w_k.xlsx";
-            l = "W";
-            data1 = 5;
-        }else if (sorev == 2 && male == 2 & zabeg == 10){
-            f = "src/sample/pr_w_d.xlsx";
-            l = "W";
-            data1 = 5;
-        }else if (sorev == 1 && male == 1){
-            f = "src/sample/pr_m_z_k.xlsx";
-            l = "M";
-            data1 = 5;
-            startZabega1 = 8;
-        }else if (sorev == 2 && male == 1){
-            f = "src/sample/pr_m_z_d.xlsx";
-            l = "M";
-            data1 = 4;
-            startZabega1 = 10;
-        }else if (sorev == 1 && male == 2){
-            f = "src/sample/pr_w_z_k.xlsx";
-            l = "W";
-            data1 = 5;
-            startZabega1 = 8;
-        }else if (sorev == 2 && male == 2){
-            f = "src/sample/pr_w_z_d.xlsx";
-            l = "W";
-            data1 = 4;
-            startZabega1 = 10;
+        if (data.getText().equals("") || startZabega.getText().equals("")){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Не введена дата или начало забега!!!");
+            alert.showAndWait();
+        }else if (zabeg == 0 || male == 0 || sorev == 0 ){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Не все параметры для создания протокола установленны!!!");
+            alert.showAndWait();
+        } else{
+            String selectFile = "";
+            Stage stage1 = new Stage();
+            stage1.setTitle("AAA");
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel File", "*.xlsx"));
+            File file = fileChooser.showSaveDialog(stage1);
+            String f = "";
+            String l = "";
+            int startZabega1 = 0;
+            int data1 = 0;
+            if (file != null){
+                selectFile = file.getAbsolutePath();
+                System.out.println(selectFile);
+            }
+            if (sorev == 1 && male == 1 && zabeg == 10){
+                String dir = System.getProperty("user.dir");
+                File filen = new File(dir + "/src/sample/xlsx/pr_m_k.xlsx");
+                f = filen.getAbsolutePath();
+                l = "M";
+                data1 = 5;
+            }else if (sorev == 2 && male == 1 && zabeg == 10){
+                String dir = System.getProperty("user.dir");
+                File filen = new File(dir + "/src/sample/xlsx/pr_m_d.xlsx");
+                f = filen.getAbsolutePath();
+                l = "M";
+                data1 = 5;
+            }else if (sorev == 1 && male == 2 && zabeg == 10){
+                String dir = System.getProperty("user.dir");
+                File filen = new File(dir + "/src/sample/xlsx/pr_w_k.xlsx");
+                f = filen.getAbsolutePath();
+                l = "W";
+                data1 = 5;
+            }else if (sorev == 2 && male == 2 & zabeg == 10){
+                String dir = System.getProperty("user.dir");
+                File filen = new File(dir + "/src/sample/xlsx/pr_w_d.xlsx");
+                f = filen.getAbsolutePath();
+                l = "W";
+                data1 = 5;
+            }else if (sorev == 1 && male == 1){
+                String dir = System.getProperty("user.dir");
+                File filen = new File(dir + "/src/sample/xlsx/pr_m_z_k.xlsx");
+                f = filen.getAbsolutePath();
+                l = "M";
+                data1 = 5;
+                startZabega1 = 8;
+            }else if (sorev == 2 && male == 1){
+                String dir = System.getProperty("user.dir");
+                File filen = new File(dir + "/src/sample/xlsx/pr_m_z_d.xlsx");
+                f = filen.getAbsolutePath();
+                l = "M";
+                data1 = 4;
+                startZabega1 = 10;
+            }else if (sorev == 1 && male == 2){
+                String dir = System.getProperty("user.dir");
+                File filen = new File(dir + "/src/sample/xlsx/pr_w_z_k.xlsx");
+                f = filen.getAbsolutePath();
+                l = "W";
+                data1 = 5;
+                startZabega1 = 8;
+            }else if (sorev == 2 && male == 2){
+                String dir = System.getProperty("user.dir");
+                File filen = new File(dir + "/src/sample/xlsx/pr_w_z_d.xlsx");
+                f = filen.getAbsolutePath();
+                l = "W";
+                data1 = 4;
+                startZabega1 = 10;
+            }
+
+            FileInputStream file1 = new FileInputStream(f);
+            XSSFWorkbook wb = new XSSFWorkbook(file1);
+            FileOutputStream out = new FileOutputStream(new File(selectFile));
+            wb.write(out);
+            file1.close();
+            out.close();
+
+            DatabaseHandler db = new DatabaseHandler();
+            int m = 0;
+            if (sorev == 1){
+                db.sortedPlace(Const.NEW_PARTICIPANTS_TABLE, m, l, zabeg);
+                System.out.println("ALINA JOPA");
+                db.convertExcel(selectFile, sorev, l, zabeg, data1, startZabega1, data.getText(), zabeg + " ЗАБЕГ НАЧАЛО В " + startZabega.getText());
+            }else if (sorev == 2){
+                m = 1;
+                db.sortedPlace(Const.TWO_PARTICIPANTS_TABLE, m, l, zabeg);
+                db.convertExcel(selectFile, sorev, l, zabeg, data1, startZabega1, data.getText(), zabeg + " ЗАБЕГ НАЧАЛО В " + startZabega.getText());
+            }else System.out.println("false");
+            data.clear();
+            startZabega.clear();
         }
 
-        FileInputStream file1 = new FileInputStream(f);
-        XSSFWorkbook wb = new XSSFWorkbook(file1);
-        FileOutputStream out = new FileOutputStream(new File(selectFile));
-        wb.write(out);
-        file1.close();
-        out.close();
-
-        DatabaseHandler db = new DatabaseHandler();
-        int m = 0;
-        if (sorev == 1){
-            db.sortedPlace(Const.NEW_PARTICIPANTS_TABLE, m, l, zabeg);
-            System.out.println("ALINA JOPA");
-            db.convertExcel(selectFile, sorev, l, zabeg, data1, startZabega1, data.getText(), zabeg + " ЗАБЕГ НАЧАЛО В " + startZabega.getText());
-        }else if (sorev == 2){
-            m = 1;
-            db.sortedPlace(Const.TWO_PARTICIPANTS_TABLE, m, l, zabeg);
-            db.convertExcel(selectFile, sorev, l, zabeg, data1, startZabega1, data.getText(), zabeg + " ЗАБЕГ НАЧАЛО В " + startZabega.getText());
-        }else System.out.println("false");
-        data.clear();
-        startZabega.clear();
 
 
     }

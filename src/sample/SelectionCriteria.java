@@ -14,8 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.imageio.IIOException;
-
 public class SelectionCriteria {
 
     @FXML
@@ -80,7 +78,6 @@ public class SelectionCriteria {
     @FXML
     public void liveOn() throws IOException {
         if (group.getSelectedToggle() != null && group1.getSelectedToggle() != null){
-            System.out.println("f");
             RadioButton button = (RadioButton) group.getSelectedToggle();
             RadioButton button1 = (RadioButton) group1.getSelectedToggle();
             pol = button.getText();
@@ -95,9 +92,7 @@ public class SelectionCriteria {
             }else if (result == 0){
                 stage1 = "/sample/createTwo.fxml";
             }else {
-                System.out.println("3");
             }
-            System.out.println("a");
             Stage stage = (Stage) liveOn.getScene().getWindow();
             stage.close();
 
@@ -108,7 +103,12 @@ public class SelectionCriteria {
             stage.setScene(new Scene(root));
             stage.show();
         }else {
-            System.out.println("ввв");
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Не все критерии выбраны!!!");
+            alert.showAndWait();
         }
 
 

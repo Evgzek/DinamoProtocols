@@ -174,7 +174,6 @@ public class DatabaseHandler extends Configs{
         String update = "UPDATE " + table + " SET " + cell + " = '" + shoot + "' WHERE " + Const.PARTICIPANTS_NUMBER + " = '" +
                 number + "';";
         getDbConnection().prepareStatement(update).executeUpdate();
-        DatabaseHandler db = new DatabaseHandler();
     }
 
     public void addShootResultPointsParticipant(double shoot, String table, double number) throws SQLException, ClassNotFoundException {
@@ -385,122 +384,87 @@ public class DatabaseHandler extends Configs{
         }
     }
 
-    public void runshoot(double time, double shoot) throws SQLException, ClassNotFoundException {
-        String select = "SELECT * FROM " + Const.RUN_TABLE;
-        Statement statement = getDbConnection().createStatement();
-        ResultSet resultSet = statement.executeQuery(select);
-        while (resultSet.next()){
-            if (time < resultSet.getDouble(Const.RUN_TIME_M)){
-                System.out.println(resultSet.getDouble(Const.RUN_RESULT_M));
-                break;
-            }
+    public void test ( int i) throws SQLException, ClassNotFoundException, ParseException {
+        if (i == 1){
+            String delete = "TRUNCATE TABLE " + Const.NEW_PARTICIPANTS_TABLE + ";";
+            Statement statement = getDbConnection().createStatement();
+            statement.executeUpdate(delete);
+            System.out.println("good");
+            delete = "TRUNCATE TABLE " + Const.TWO_PARTICIPANTS_TABLE + ";";
+            Statement statement3 = getDbConnection().createStatement();
+            statement3.executeUpdate(delete);
+        }else if (i == 2){
+            String select = "SELECT * FROM " + Const.TEAMS_TABLE;
+            Statement statement1 = getDbConnection().createStatement();
+            ResultSet resultSet = statement1.executeQuery(select);
+            while (resultSet.next()){
+                String update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.W_1 + "d = null WHERE " + Const.TEAMS_TEAM
+                        + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
+                Statement statement2 = getDbConnection().createStatement();
+                statement2.executeUpdate(update);
+                update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.W_2 + "d = null WHERE " + Const.TEAMS_TEAM
+                        + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
+                statement2 = getDbConnection().createStatement();
+                statement2.executeUpdate(update);
+                update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_1 + "d = null WHERE " + Const.TEAMS_TEAM
+                        + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
+                statement2 = getDbConnection().createStatement();
+                statement2.executeUpdate(update);
+                update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_2 + "d = null WHERE " + Const.TEAMS_TEAM
+                        + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
+                statement2 = getDbConnection().createStatement();
+                statement2.executeUpdate(update);
+                update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_3 + "d = null WHERE " + Const.TEAMS_TEAM
+                        + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
+                statement2 = getDbConnection().createStatement();
+                statement2.executeUpdate(update);
+                update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_4 + "d = null WHERE " + Const.TEAMS_TEAM
+                        + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
+                statement2 = getDbConnection().createStatement();
+                statement2.executeUpdate(update);
+                update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.TEAMS_PLACE + "d = null WHERE " + Const.TEAMS_TEAM
+                        + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
+                statement2 = getDbConnection().createStatement();
+                statement2.executeUpdate(update);
+                update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.TEAMS_SUM_PLACE + "d = null WHERE " + Const.TEAMS_TEAM
+                        + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
+                statement2 = getDbConnection().createStatement();
+                statement2.executeUpdate(update);
+                update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.W_1 + "k = null WHERE " + Const.TEAMS_TEAM
+                        + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
+                statement2 = getDbConnection().createStatement();
+                statement2.executeUpdate(update);
+                update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.W_2 + "k = null WHERE " + Const.TEAMS_TEAM
+                        + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
+                statement2 = getDbConnection().createStatement();
+                statement2.executeUpdate(update);
+                update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_1 + "k = null WHERE " + Const.TEAMS_TEAM
+                        + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
+                statement2 = getDbConnection().createStatement();
+                statement2.executeUpdate(update);
+                update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_2 + "k = null WHERE " + Const.TEAMS_TEAM
+                        + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
+                statement2 = getDbConnection().createStatement();
+                statement2.executeUpdate(update);
+                update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_3 + "k = null WHERE " + Const.TEAMS_TEAM
+                        + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
+                statement2 = getDbConnection().createStatement();
+                statement2.executeUpdate(update);
+                update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_4 + "k = null WHERE " + Const.TEAMS_TEAM
+                        + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
+                statement2 = getDbConnection().createStatement();
+                statement2.executeUpdate(update);
+                update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.TEAMS_PLACE + "k = null WHERE " + Const.TEAMS_TEAM
+                        + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
+                statement2 = getDbConnection().createStatement();
+                statement2.executeUpdate(update);
+                update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.TEAMS_SUM_PLACE + "k = null WHERE " + Const.TEAMS_TEAM
+                        + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
+                statement2 = getDbConnection().createStatement();
+                statement2.executeUpdate(update);
         }
-        select = "SELECT * FROM " + Const.SHOOTING_TABLE;
-        resultSet = statement.executeQuery(select);
-        while (resultSet.next()){
-            if (shoot == resultSet.getDouble(Const.SHOOTING_RESULT)){
-                System.out.println(resultSet.getDouble(Const.SHOOTING_POINTS));
-                break;
-            }
-        }
-    }
 
 
-    public void test ( ) throws SQLException, ClassNotFoundException, ParseException {
-//        String insert = "INSERT INTO " + Const.RUN_TABLE + "("+ Const.RUN_TIME_M + ", " +
-//                Const.RUN_RESULT_M + ", " + Const.RUN_TIME_W + ", " + Const.RUN_RESULT_W + ")" + "VALUES(?,?,?,?)";
-//            PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
-//        System.out.println("s");
-//        System.out.println("d");
-//            preparedStatement.setDouble(1, time_m);
-//        System.out.println("f");
-//            preparedStatement.setDouble(2, points_m);
-//            preparedStatement.setDouble(3, time_w);
-//            preparedStatement.setDouble(4, points_w);
-//        System.out.println("g");
-//            preparedStatement.executeUpdate();
-//        System.out.println("good");
-//        String select = "SELECT * FROM " + Const.NEW_PARTICIPANTS_TABLE + " ORDER BY " +
-//                Const.PARTICIPANTS_RESULT_KEF + " ASC;";
-//        String delete = "TRUNCATE TABLE " + Const.NEW_PARTICIPANTS_TABLE + ";";
-//        Statement statement = getDbConnection().createStatement();
-//        statement.executeUpdate(delete);
-//        System.out.println("good");
-//        delete = "TRUNCATE TABLE " + Const.TWO_PARTICIPANTS_TABLE + ";";
-//        Statement statement3 = getDbConnection().createStatement();
-//        statement3.executeUpdate(delete);
-        String select = "SELECT * FROM " + Const.TEAMS_TABLE;
-        Statement statement1 = getDbConnection().createStatement();
-        ResultSet resultSet = statement1.executeQuery(select);
-        while (resultSet.next()){
-//            if (resultSet.getInt("id") > 9){
-//                System.out.println("rrr");
-//                break;
-//            }else System.out.println(resultSet.getInt("id"));
-            String update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.W_1 + "d = null WHERE " + Const.TEAMS_TEAM
-                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
-            Statement statement2 = getDbConnection().createStatement();
-            statement2.executeUpdate(update);
-            update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.W_2 + "d = null WHERE " + Const.TEAMS_TEAM
-                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
-            statement2 = getDbConnection().createStatement();
-            statement2.executeUpdate(update);
-            update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_1 + "d = null WHERE " + Const.TEAMS_TEAM
-                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
-            statement2 = getDbConnection().createStatement();
-            statement2.executeUpdate(update);
-            update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_2 + "d = null WHERE " + Const.TEAMS_TEAM
-                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
-            statement2 = getDbConnection().createStatement();
-            statement2.executeUpdate(update);
-            update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_3 + "d = null WHERE " + Const.TEAMS_TEAM
-                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
-            statement2 = getDbConnection().createStatement();
-            statement2.executeUpdate(update);
-            update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_4 + "d = null WHERE " + Const.TEAMS_TEAM
-                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
-            statement2 = getDbConnection().createStatement();
-            statement2.executeUpdate(update);
-            update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.TEAMS_PLACE + "d = null WHERE " + Const.TEAMS_TEAM
-                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
-            statement2 = getDbConnection().createStatement();
-            statement2.executeUpdate(update);
-            update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.TEAMS_SUM_PLACE + "d = null WHERE " + Const.TEAMS_TEAM
-                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
-            statement2 = getDbConnection().createStatement();
-            statement2.executeUpdate(update);
-            update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.W_1 + "k = null WHERE " + Const.TEAMS_TEAM
-                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
-            statement2 = getDbConnection().createStatement();
-            statement2.executeUpdate(update);
-            update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.W_2 + "k = null WHERE " + Const.TEAMS_TEAM
-                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
-            statement2 = getDbConnection().createStatement();
-            statement2.executeUpdate(update);
-            update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_1 + "k = null WHERE " + Const.TEAMS_TEAM
-                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
-            statement2 = getDbConnection().createStatement();
-            statement2.executeUpdate(update);
-            update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_2 + "k = null WHERE " + Const.TEAMS_TEAM
-                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
-            statement2 = getDbConnection().createStatement();
-            statement2.executeUpdate(update);
-            update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_3 + "k = null WHERE " + Const.TEAMS_TEAM
-                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
-            statement2 = getDbConnection().createStatement();
-            statement2.executeUpdate(update);
-            update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.M_4 + "k = null WHERE " + Const.TEAMS_TEAM
-                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
-            statement2 = getDbConnection().createStatement();
-            statement2.executeUpdate(update);
-            update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.TEAMS_PLACE + "k = null WHERE " + Const.TEAMS_TEAM
-                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
-            statement2 = getDbConnection().createStatement();
-            statement2.executeUpdate(update);
-            update = "UPDATE " + Const.TEAMS_TABLE + " SET " + Const.TEAMS_SUM_PLACE + "k = null WHERE " + Const.TEAMS_TEAM
-                    + " = '" + resultSet.getString(Const.TEAMS_TEAM) + "';";
-            statement2 = getDbConnection().createStatement();
-            statement2.executeUpdate(update);
         }
     }
 
@@ -1132,7 +1096,7 @@ public class DatabaseHandler extends Configs{
             }
     }
 
-    public void convertTeam(String f, int i, String vid) throws SQLException, ClassNotFoundException, IOException {
+    public void convertTeam(String f, int i, String vid, int data, String daTa) throws SQLException, ClassNotFoundException, IOException {
         String select = "SELECT * FROM " + Const.TEAMS_TABLE + " ORDER BY " +
                 Const.TEAMS_SUM_PLACE + vid + " ASC;";
         int place = 0;
@@ -1162,6 +1126,9 @@ public class DatabaseHandler extends Configs{
                 Const.TEAMS_SUM_PLACE + vid + " ASC;";
         int place_t = 1;
         int sos = 0;
+        Row row1 = sheet.getRow(data);
+        Cell cell1 = row1.getCell(0);
+        cell1.setCellValue(daTa);
         resultSet = statement.executeQuery(select);
         while (resultSet.next()){
             Row row = sheet.getRow(i);
@@ -1213,19 +1180,6 @@ public class DatabaseHandler extends Configs{
             if (resultSet.getString(Const.TEAMS_TEAM).equals(team)){
                 NewTeamVk.proverka = 1;
                 break;
-            }
-        }
-    }
-
-
-    public void tyu() throws SQLException, ClassNotFoundException {
-        String s = "SELECT * FROM " + Const.TEAMS_TABLE +" WHERE id = 1;";
-        Statement statement = getDbConnection().createStatement();
-        ResultSet resultSet = statement.executeQuery(s);
-        while (resultSet.next()){
-            System.out.println(resultSet.getDouble(Const.W_1 + "k"));
-            if (resultSet.getDouble(Const.W_1 + "k") == 0 ){
-                System.out.println("good");
             }
         }
     }

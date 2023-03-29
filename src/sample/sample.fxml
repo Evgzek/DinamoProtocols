@@ -24,12 +24,17 @@
                   <Font name="Chiller" size="22.0" />
                </font>
             </Button>
-            <Button id="settings" fx:id="settings" layoutX="146.0" layoutY="148.0" mnemonicParsing="false" onAction="#deleteTable" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Очистить базу данных с участниками" textFill="#1e205d">
+            <Button id="settings" fx:id="deletePaeticipants" layoutX="40.0" layoutY="148.0" mnemonicParsing="false" onAction="#deleteParticipans" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Очистить базу данных с участниками" textFill="#1e205d">
                <font>
                   <Font name="Chiller" size="22.0" />
                </font>
             </Button>
-            <Button id="settings" fx:id="teams_vk" layoutX="221.0" layoutY="218.0" onAction="#teamsVk" mnemonicParsing="false" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Добавить команду в/к" textFill="#1e205d">
+            <Button id="settings" fx:id="teams_vk" layoutX="221.0" layoutY="218.0" mnemonicParsing="false" onAction="#teamsVk" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="Добавить команду в/к" textFill="#1e205d">
+               <font>
+                  <Font name="Chiller" size="22.0" />
+               </font>
+            </Button>
+            <Button id="settings" fx:id="deleteTeams" layoutX="476.0" layoutY="148.0" onAction="#setDeleteTeams" mnemonicParsing="false" style="-fx-background-color: #fff; -fx-border-color: #1e205d; -fx-border-radius: 5;" text="с командами" textFill="#1e205d">
                <font>
                   <Font name="Chiller" size="22.0" />
                </font>
